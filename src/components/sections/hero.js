@@ -61,15 +61,16 @@ const Hero = () => {
 
   const one = <h1>Hi 👋🏻, my name is</h1>;
   const two = <h2 className="big-heading">Aman Jha.</h2>;
-  const three = <h3 className="big-heading">I build things for the web.</h3>;
+  const three = <h3 className="big-heading">I build things for the Next-Gen Web.</h3>;
   const four = (
     <>
       <p>
-        I’m a software engineer 👨🏻‍💻 specializing in building (and occasionally designing) exceptional
-        digital experiences. Currently, I’m focused on building accessible, human-centered products
-        at{' '}
-        <a href="https://zestmoney.in/" target="_blank" rel="noreferrer">
-          ZestMoney
+        I’m a software engineer 👨🏻‍💻 specializing in building (and designing) exceptional digital
+        experiences. Currently, I’m focused on shaping the future of shaping the future of{' '}
+        {/* building accessible, human-centered products */}
+        FinTech at{' '}
+        <a href="https://www.swiffylabs.com/" target="_blank" rel="noreferrer">
+          SwiffyLabs
         </a>
         .
       </p>

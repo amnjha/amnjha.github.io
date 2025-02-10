@@ -125,7 +125,7 @@ const About = () => {
     sr.reveal(revealContainer.current, srConfig());
   }, []);
 
-  const skills = ['Golang', 'Java', 'Spring-Boot', 'Docker', 'Kubernetes', 'AWS'];
+  const skills = ['Golang', 'Java', 'Spring-Boot', 'Docker', 'Kubernetes', 'AWS', 'Kafka'];
 
   return (
     <StyledAboutSection id="about" ref={revealContainer}>
@@ -155,11 +155,12 @@ const About = () => {
             <p>
               Fast-forward to today, and I’ve had the privilege of working at{' '}
               <a href="https://zycus.com/">a Procurement based Start-Up</a>,{' '}
-              <a href="https://here.com/">a Map provider company</a>, and{' '}
-              <a href="https://www.lowes.com/">a retail giant in the US</a> . My main focus these
-              days is building accessible, inclusive products and financial experiences at{' '}
-              <a href="https://zestmoney.in/">ZestMoney</a> for customers with little to no access
-              to credit in india.
+              <a href="https://here.com/">a Map provider company</a>,{' '}
+              <a href="https://www.lowes.com/">a retail giant in the US</a> and a{' '}
+              <a href="https://zestmoney.in/">BNPL Pioneer Start-up in India </a>. My main focus
+              these days is building accessible, inclusive products and financial experiences at{' '}
+              <a href="https://swiffylabs.com/">SwiffyLabs</a> for Banks and NBFCs, so that they can
+              focus less on Tech and more on Banking.
             </p>
 
             <p>Here are a few technologies I’ve been working with recently:</p>
