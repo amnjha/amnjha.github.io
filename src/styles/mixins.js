@@ -1,25 +1,43 @@
 import { css } from 'styled-components';
 
-const button = css`
-  color: var(--green);
-  background-color: transparent;
-  border: 1px solid var(--green);
-  border-radius: var(--border-radius);
-  font-size: var(--fz-xs);
-  font-family: var(--font-mono);
-  line-height: 1;
+const pressable = css`
+  cursor: pointer;
   text-decoration: none;
-  padding: 1.25rem 1.75rem;
   transition: var(--transition);
 
-  &:hover,
+  &:active {
+    transform: scale(0.95);
+  }
   &:focus-visible {
-    outline: none;
-    box-shadow: 4px 4px 0 0 var(--green);
-    transform: translate(-5px, -5px);
+    outline: 2px solid var(--primary-focus);
+    outline-offset: 2px;
   }
   &:after {
     display: none !important;
+  }
+`;
+
+/* Signature Apple pill in Action Blue */
+const button = css`
+  ${pressable};
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--on-primary);
+  background-color: var(--primary);
+  border: 0;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-sans);
+  font-size: var(--fz-md);
+  font-weight: 400;
+  letter-spacing: -0.374px;
+  line-height: 1;
+  padding: 13px 22px;
+  min-height: 44px;
+
+  &:hover {
+    background-color: var(--primary-focus);
+    color: var(--on-primary);
   }
 `;
 
@@ -46,7 +64,7 @@ const mixins = {
 
     &:hover,
     &:focus-visible {
-      color: var(--green);
+      color: var(--primary);
       outline: 0;
     }
   `,
@@ -54,18 +72,18 @@ const mixins = {
   inlineLink: css`
     display: inline-block;
     position: relative;
-    color: var(--green);
+    color: var(--primary);
     transition: var(--transition);
 
     &:hover,
     &:focus-visible {
-      color: var(--green);
+      color: var(--primary-focus);
       outline: 0;
       &:after {
         width: 100%;
       }
       & > * {
-        color: var(--green) !important;
+        color: var(--primary-focus) !important;
         transition: var(--transition);
       }
     }
@@ -76,7 +94,7 @@ const mixins = {
       height: 1px;
       position: relative;
       bottom: 0.37em;
-      background-color: var(--green);
+      background-color: var(--primary);
       opacity: 0.5;
       @media (prefers-reduced-motion: no-preference) {
         transition: var(--transition);
@@ -86,59 +104,81 @@ const mixins = {
 
   button,
 
-  smallButton: css`
-    color: var(--green);
-    background-color: transparent;
-    border: 1px solid var(--green);
-    border-radius: var(--border-radius);
-    padding: 0.75rem 1rem;
-    font-size: var(--fz-xs);
-    font-family: var(--font-mono);
-    line-height: 1;
-    text-decoration: none;
-    transition: var(--transition);
+  bigButton: css`
+    ${button};
+    font-size: 18px;
+    font-weight: 300;
+    padding: 14px 28px;
+  `,
 
-    &:hover,
-    &:focus-visible {
-      outline: none;
-      box-shadow: 3px 3px 0 0 var(--green);
-      transform: translate(-4px, -4px);
-    }
-    &:after {
-      display: none !important;
+  /* Compact dark utility rect (Sign In / Bag grammar) */
+  smallButton: css`
+    ${pressable};
+    display: inline-flex;
+    align-items: center;
+    color: var(--on-dark);
+    background-color: var(--ink);
+    border: 0;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-sans);
+    font-size: var(--fz-sm);
+    font-weight: 400;
+    letter-spacing: -0.224px;
+    line-height: 1.29;
+    padding: 8px 15px;
+
+    &:hover {
+      background-color: var(--ink-muted-80);
+      color: var(--on-dark);
     }
   `,
 
-  bigButton: css`
-    color: var(--green);
-    background-color: transparent;
-    border: 1px solid var(--green);
-    border-radius: var(--border-radius);
-    padding: 1.25rem 1.75rem;
-    font-size: var(--fz-sm);
-    font-family: var(--font-mono);
-    line-height: 1;
-    text-decoration: none;
-    transition: var(--transition);
+  /* Dark pill, used for the hero CTA and selected chips */
+  darkPill: css`
+    ${button};
+    background-color: var(--ink);
 
-    &:hover,
-    &:focus-visible {
-      outline: none;
-      box-shadow: 4px 4px 0 0 var(--green);
-      transform: translate(-5px, -5px);
+    &:hover {
+      background-color: var(--ink-muted-80);
     }
-    &:after {
-      display: none !important;
+  `,
+
+  /* Pearl capsule secondary button */
+  pearlCapsule: css`
+    ${pressable};
+    display: inline-flex;
+    align-items: center;
+    color: var(--ink-muted-80);
+    background-color: var(--surface-pearl);
+    border: 1px solid var(--hairline-alpha);
+    border-radius: var(--radius-md);
+    font-family: var(--font-sans);
+    font-size: var(--fz-sm);
+    letter-spacing: -0.224px;
+    line-height: 1.29;
+    padding: 8px 14px;
+
+    &:hover {
+      color: var(--ink);
+      border-color: var(--ink-muted-24);
     }
+  `,
+
+  /* Store utility card: white, hairline, 18px radius, no shadow */
+  card: css`
+    background-color: var(--canvas);
+    border: 1px solid var(--hairline-alpha);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
   `,
 
   boxShadow: css`
-    box-shadow: 0 10px 30px -15px var(--navy-shadow);
+    border: 1px solid var(--hairline-alpha);
     transition: var(--transition);
 
     &:hover,
     &:focus-visible {
-      box-shadow: 0 20px 30px -15px var(--navy-shadow);
+      border-color: var(--ink-muted-24);
     }
   `,
 
@@ -146,7 +186,7 @@ const mixins = {
     padding: 0;
     margin: 0;
     list-style: none;
-    font-size: var(--fz-lg);
+    font-size: var(--fz-md);
     li {
       position: relative;
       padding-left: 30px;
@@ -155,7 +195,7 @@ const mixins = {
         content: '▹';
         position: absolute;
         left: 0;
-        color: var(--green);
+        color: var(--primary);
       }
     }
   `,

@@ -1,5 +1,58 @@
 module.exports = {
   email: 'amanjha22@gmail.com',
+  bookCallUrl: 'https://topmate.io/amnjha',
+  resumePath: '/aman_resume.pdf',
+  openToWork: true,
+
+  role: 'Staff Engineer',
+  company: { name: 'SwiffyLabs', url: 'https://www.swiffylabs.com/' },
+
+  location: {
+    city: 'Bengaluru',
+    country: 'India',
+    coordinates: '12.9716° N, 77.5946° E',
+  },
+
+  skills: [
+    'Java',
+    'Go',
+    'Spring Boot',
+    'PostgreSQL',
+    'Kafka',
+    'Redis',
+    'Docker',
+    'Kubernetes',
+    'Azure',
+    'AWS',
+  ],
+
+  process: [
+    {
+      title: 'Discovery Call',
+      description:
+        'We start with a short call to understand your goals, constraints and what success looks like. This sets the foundation for everything that follows.',
+    },
+    {
+      title: 'Scope & Design',
+      description:
+        'I map the problem into service boundaries, data models and a delivery plan, and we agree on what ships first and what can wait.',
+    },
+    {
+      title: 'Build',
+      description:
+        'Focused delivery in short iterations, with configuration over code wherever it lets the team move faster without a release.',
+    },
+    {
+      title: 'Review & Iterate',
+      description:
+        'Regular demos and code reviews keep quality high and surprises low. Feedback goes straight back into the next iteration.',
+    },
+    {
+      title: 'Ship & Support',
+      description:
+        'We launch with dashboards and alerting in place, then I stay around to tune, document and hand over cleanly.',
+    },
+  ],
 
   socialMedia: [
     {
@@ -26,16 +79,16 @@ module.exports = {
 
   navLinks: [
     {
-      name: 'About',
-      url: '/#about',
-    },
-    {
       name: 'Experience',
-      url: '/#jobs',
+      url: '/#experience',
     },
     {
       name: 'Work',
-      url: '/#projects',
+      url: '/#work',
+    },
+    {
+      name: 'How I work',
+      url: '/#process',
     },
     {
       name: 'Contact',
@@ -44,9 +97,14 @@ module.exports = {
   ],
 
   colors: {
-    green: '#64ffda',
-    navy: '#0a192f',
-    darkNavy: '#020c1b',
+    primary: '#0066cc',
+    ink: '#1d1d1f',
+    canvas: '#ffffff',
+    parchment: '#f5f5f7',
+    // kept for gatsby-config manifest colours
+    green: '#0066cc',
+    navy: '#ffffff',
+    darkNavy: '#f5f5f7',
   },
 
   srConfig: (delay = 200, viewFactor = 0.25) => ({
