@@ -127,6 +127,8 @@ const ExperienceCard = styled(Card)`
 `;
 
 const ReadingCard = styled(Card)`
+  min-height: 330px;
+
   h3 {
     font-size: var(--fz-sm);
     letter-spacing: -0.224px;
@@ -137,29 +139,90 @@ const ReadingCard = styled(Card)`
     margin-top: 2px;
   }
 
+  /* 3D hardcover seen from an angle, hanging off the bottom edge of the card */
   .book {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    bottom: -30px;
     display: block;
-    width: 62%;
-    max-width: 150px;
-    margin: 24px auto -48px;
-    aspect-ratio: 2 / 3;
-    border-radius: var(--radius-xs);
+    width: 176px;
+    height: 245px;
+    margin-left: -78px;
+    perspective: 720px;
+    perspective-origin: 40% 40%;
+    color: inherit;
+
+    &:hover .book3d,
+    &:focus-visible .book3d {
+      transform: rotateX(4deg) rotateY(18deg) rotateZ(-4deg) translateY(-6px);
+    }
+  }
+
+  .book3d {
+    position: absolute;
+    inset: 0;
+    transform-style: preserve-3d;
+    transform: rotateX(6deg) rotateY(34deg) rotateZ(-7deg);
+    transition: transform 0.45s var(--easing);
+  }
+
+  .cover,
+  .back,
+  .pages {
+    position: absolute;
+    display: block;
+  }
+
+  .cover {
+    inset: 0;
     overflow: hidden;
-    transform: rotate(-4deg);
+    border-radius: 2px 5px 5px 2px;
+    background-color: var(--surface-tile-1);
+    transform: translateZ(0);
     /* product shadow: the single shadow in the system, reserved for imagery */
     box-shadow: var(--product-shadow);
-    transition: var(--transition);
-
-    &:hover,
-    &:focus-visible {
-      transform: rotate(0deg) translateY(-6px);
-    }
 
     .gatsby-image-wrapper {
       width: 100%;
       height: 100%;
     }
+
+    &:after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(
+        100deg,
+        rgba(255, 255, 255, 0.28) 0%,
+        rgba(255, 255, 255, 0) 32%,
+        rgba(0, 0, 0, 0) 70%,
+        rgba(0, 0, 0, 0.14) 100%
+      );
+    }
+  }
+
+  .back {
+    inset: 0;
+    border-radius: 2px 5px 5px 2px;
+    background-color: #b0342a;
+    transform: translateZ(-26px);
+  }
+
+  .pages {
+    top: 3px;
+    bottom: 3px;
+    left: 0;
+    width: 26px;
+    transform-origin: left center;
+    transform: rotateY(-90deg) translateX(-26px);
+    background-color: #f6f6f4;
+    background-image: repeating-linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0) 0 2px,
+      rgba(0, 0, 0, 0.09) 2px 3px
+    );
+    box-shadow: inset -6px 0 8px rgba(0, 0, 0, 0.12);
   }
 
   /* Typographic fallback shown until a cover image is added */
@@ -540,14 +603,20 @@ const Bento = () => {
             target="_blank"
             rel="noreferrer"
             aria-label={`${reading.title} by ${reading.author}`}>
-            {bookCover ? (
-              <GatsbyImage image={bookCover} alt={`${reading.title} cover`} />
-            ) : (
-              <span className="cover-fallback" aria-hidden="true">
-                <span className="t">{reading.title}</span>
-                <span className="a">{reading.author}</span>
+            <span className="book3d">
+              <span className="back" aria-hidden="true" />
+              <span className="pages" aria-hidden="true" />
+              <span className="cover">
+                {bookCover ? (
+                  <GatsbyImage image={bookCover} alt={`${reading.title} cover`} />
+                ) : (
+                  <span className="cover-fallback" aria-hidden="true">
+                    <span className="t">{reading.title}</span>
+                    <span className="a">{reading.author}</span>
+                  </span>
+                )}
               </span>
-            )}
+            </span>
           </a>
         </ReadingCard>
 
