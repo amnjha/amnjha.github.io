@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage, StaticImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
 import { location, reading, process, socialMedia } from '@config';
 import { Icon } from '@components/icons';
@@ -367,11 +367,15 @@ const MapCard = styled(Card)`
   }
 
   .map {
-    position: absolute;
+    position: absolute !important;
     inset: 0;
     width: 100%;
     height: 100%;
-    color: var(--ink);
+
+    img {
+      transform: scale(1.3);
+      transform-origin: 35% 25%;
+    }
   }
 
   .place {
@@ -472,66 +476,6 @@ const ProcessCard = styled(Card)`
     }
   }
 `;
-
-/* Deterministic pseudo-random street network so SSR and client output match */
-const mapPaths = (() => {
-  let seed = 7;
-  const rnd = () => {
-    seed = (seed * 9301 + 49297) % 233280;
-    return seed / 233280;
-  };
-  const paths = [];
-  // arterial roads
-  for (let i = 0; i < 7; i += 1) {
-    const y = 18 + i * 36 + rnd() * 10;
-    const c1 = rnd() * 24 - 12;
-    const c2 = rnd() * 24 - 12;
-    paths.push({ d: `M-10 ${y} C 70 ${y + c1}, 150 ${y + c2}, 250 ${y + c1 / 2}`, w: 1.2, o: 0.5 });
-  }
-  for (let i = 0; i < 6; i += 1) {
-    const x = 20 + i * 42 + rnd() * 12;
-    const c1 = rnd() * 24 - 12;
-    const c2 = rnd() * 24 - 12;
-    paths.push({ d: `M${x} -10 C ${x + c1} 70, ${x + c2} 150, ${x + c1 / 2} 250`, w: 1.2, o: 0.5 });
-  }
-  // minor streets
-  for (let i = 0; i < 60; i += 1) {
-    const x = rnd() * 240;
-    const y = rnd() * 240;
-    const len = 18 + rnd() * 40;
-    const angle = rnd() > 0.5 ? rnd() * 0.3 - 0.15 : Math.PI / 2 + rnd() * 0.3 - 0.15;
-    const x2 = x + Math.cos(angle) * len;
-    const y2 = y + Math.sin(angle) * len;
-    paths.push({
-      d: `M${x.toFixed(1)} ${y.toFixed(1)} L ${x2.toFixed(1)} ${y2.toFixed(1)}`,
-      w: 0.5,
-      o: 0.32,
-    });
-  }
-  return paths;
-})();
-
-const MapArt = () => (
-  <svg
-    className="map"
-    viewBox="0 0 240 240"
-    preserveAspectRatio="xMidYMid slice"
-    aria-hidden="true"
-    focusable="false">
-    <rect width="240" height="240" fill="#fbfbfb" />
-    <path
-      d="M-10 150 C 40 130, 70 170, 120 150 S 200 120, 250 140 L 250 175 C 200 165, 160 190, 120 178 S 40 170, -10 185 Z"
-      fill="#eeeeee"
-    />
-    <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-      {mapPaths.map((p, i) => (
-        <path key={i} d={p.d} strokeWidth={p.w} opacity={p.o} />
-      ))}
-    </g>
-    <circle cx="118" cy="104" r="3.5" fill="#1d1d1f" />
-    <circle cx="118" cy="104" r="8" fill="#1d1d1f" opacity="0.12" />
-  </svg>
-);
 
 const Bento = () => {
   const data = useStaticQuery(graphql`
@@ -681,7 +625,16 @@ const Bento = () => {
 
         <MapCard>
           <span className="label">Map</span>
-          <MapArt />
+          <StaticImage
+            className="map"
+            src="../../images/map/bengaluru.jpg"
+            alt={`Street map of ${location.city}`}
+            width={480}
+            height={480}
+            quality={85}
+            placeholder="blurred"
+            formats={['AUTO', 'WEBP']}
+          />
           <div className="place">
             <div className="city">{location.city}</div>
             <div className="country">{location.country}</div>
