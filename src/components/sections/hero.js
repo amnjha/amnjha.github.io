@@ -65,10 +65,9 @@ const Hero = () => {
   const four = (
     <>
       <p>
-        I’m a software engineer 👨🏻‍💻 specializing in building (and designing) exceptional digital
-        experiences. Currently, I’m focused on shaping the future of shaping the future of{' '}
-        {/* building accessible, human-centered products */}
-        FinTech at{' '}
+        I’m a staff engineer 👨🏻‍💻 specializing in backend and platform systems for fintech: workflow
+        orchestration, configuration stores and API gateways. Currently, I’m focused on shaping the
+        future of lending at{' '}
         <a href="https://www.swiffylabs.com/" target="_blank" rel="noreferrer">
           SwiffyLabs
         </a>

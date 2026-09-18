@@ -1,14 +1,15 @@
 ---
 date: '2022-08-16'
 title: 'Staff Engineer'
-company: 'Zestmoney'
-location: 'Bangalore, KA'
+company: 'ZestMoney'
+location: 'Bengaluru, KA'
 range: 'Aug 2022 - Feb 2024'
 url: 'https://www.zestmoney.in/'
 ---
 
-- Design, Build and Maintain the Solution around application and processing of Personal Loans
-- Build and Maintain the ZestMoney Orchestration layer(ZestLife Channel) that acts as a proxy between the Client facing App and the ZestMoney Internal Services
-- Built and maintained the Rewards engine - A place for customers to earn coins on transactions on the ZestMoney platform
-- Lead a team of Developers to build and maintain Zestmoney services while coordinating requirements with higher management and design and build solutions around it along with the development team.
-- Review and Moderation of Codebase
+- Led a team of engineers building and operating consumer lending services, translating requirements from product and senior management into delivered systems.
+- Designed and built personal loan application and processing services in Go, covering application intake, underwriting handoff and disbursal.
+- Integrated BNPL and EMI checkout with online merchants including Flipkart and Amazon.
+- Built bank integrations with HDFC and ICICI offering EMI to existing-to-bank customers at merchant checkout.
+- Built and maintained ZestLife Channel, the orchestration layer proxying traffic between consumer apps and internal lending services.
+- Technologies: Go, Java, PostgreSQL, Kafka, AWS, Docker.

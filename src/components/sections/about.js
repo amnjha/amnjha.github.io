@@ -125,7 +125,18 @@ const About = () => {
     sr.reveal(revealContainer.current, srConfig());
   }, []);
 
-  const skills = ['Golang', 'Java', 'Spring-Boot', 'Docker', 'Kubernetes', 'AWS', 'Kafka'];
+  const skills = [
+    'Java',
+    'Go',
+    'Spring Boot',
+    'PostgreSQL',
+    'Kafka',
+    'Redis',
+    'Docker',
+    'Kubernetes',
+    'Azure',
+    'AWS',
+  ];
 
   return (
     <StyledAboutSection id="about" ref={revealContainer}>
@@ -153,14 +164,20 @@ const About = () => {
             </p>
 
             <p>
-              Fast-forward to today, and I’ve had the privilege of working at{' '}
-              <a href="https://zycus.com/">a Procurement based Start-Up</a>,{' '}
-              <a href="https://here.com/">a Map provider company</a>,{' '}
-              <a href="https://www.lowes.com/">a retail giant in the US</a> and a{' '}
-              <a href="https://zestmoney.in/">BNPL Pioneer Start-up in India </a>. My main focus
-              these days is building accessible, inclusive products and financial experiences at{' '}
-              <a href="https://swiffylabs.com/">SwiffyLabs</a> for Banks and NBFCs, so that they can
-              focus less on Tech and more on Banking.
+              Fast-forward to today, and I’ve spent 10 years building backend and platform systems
+              across consumer lending, payments and retail. I’ve had the privilege of working at{' '}
+              <a href="https://zycus.com/">a procurement start-up</a>,{' '}
+              <a href="https://here.com/">a map provider</a>,{' '}
+              <a href="https://www.lowes.com/">a retail giant in the US</a>,{' '}
+              <a href="https://zestmoney.in/">a BNPL pioneer in India</a> and{' '}
+              <a href="https://www.jio.com/platforms">Jio Platforms</a>, where I led the backend
+              architecture for the Jio Digital Wallet.
+            </p>
+            <p>
+              These days I’m a Staff Engineer at <a href="https://swiffylabs.com/">SwiffyLabs</a>,
+              where I own the loan origination platform used by multiple lenders: workflow
+              orchestration, configuration stores, API gateways and the shared libraries that let
+              banks and NBFCs focus less on tech and more on banking.
             </p>
 
             <p>Here are a few technologies I’ve been working with recently:</p>
