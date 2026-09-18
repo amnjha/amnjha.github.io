@@ -26,33 +26,13 @@ module.exports = {
     'AWS',
   ],
 
-  process: [
-    {
-      title: 'Discovery Call',
-      description:
-        'We start with a short call to understand your goals, constraints and what success looks like. This sets the foundation for everything that follows.',
-    },
-    {
-      title: 'Scope & Design',
-      description:
-        'I map the problem into service boundaries, data models and a delivery plan, and we agree on what ships first and what can wait.',
-    },
-    {
-      title: 'Build',
-      description:
-        'Focused delivery in short iterations, with configuration over code wherever it lets the team move faster without a release.',
-    },
-    {
-      title: 'Review & Iterate',
-      description:
-        'Regular demos and code reviews keep quality high and surprises low. Feedback goes straight back into the next iteration.',
-    },
-    {
-      title: 'Ship & Support',
-      description:
-        'We launch with dashboards and alerting in place, then I stay around to tune, document and hand over cleanly.',
-    },
-  ],
+  reading: {
+    title: 'The 48 Laws of Power',
+    author: 'Robert Greene',
+    url: 'https://www.goodreads.com/book/show/1303.The_48_Laws_of_Power',
+    // Drop a cover at src/images/books/<cover>.jpg (or .png) and it is picked up automatically
+    cover: '48-laws-of-power',
+  },
 
   socialMedia: [
     {
@@ -87,8 +67,8 @@ module.exports = {
       url: '/#work',
     },
     {
-      name: 'How I work',
-      url: '/#process',
+      name: 'Projects',
+      url: '/#projects',
     },
     {
       name: 'Contact',
