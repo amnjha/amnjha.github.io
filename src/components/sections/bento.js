@@ -146,13 +146,14 @@ const ReadingCard = styled(Card)`
     margin-top: 2px;
   }
 
-  /* Lighter inset panel that runs off the card's right and bottom edges */
+  /* Lighter inset panel, centred, running off the card's bottom edge */
   .frame {
     position: relative;
     flex: 1;
+    width: 62%;
     min-height: 190px;
-    margin: 18px -32px -32px 24px;
-    border-radius: 22px;
+    margin: 18px auto -24px;
+    border-radius: 22px 22px 0 0;
     background-color: var(--surface-pearl);
     overflow: hidden;
   }
@@ -160,18 +161,18 @@ const ReadingCard = styled(Card)`
   /* 3D hardcover seen from an angle */
   .book {
     position: absolute;
-    left: 30%;
-    top: 12%;
+    left: 24%;
+    top: 10%;
     display: block;
-    width: 150px;
-    height: 208px;
+    width: 156px;
+    height: 216px;
     perspective: 720px;
-    perspective-origin: 30% 30%;
+    perspective-origin: 20% 20%;
     color: inherit;
 
     &:hover .book3d,
     &:focus-visible .book3d {
-      transform: rotateX(4deg) rotateY(16deg) rotateZ(-5deg) translateY(-4px);
+      transform: rotateX(4deg) rotateY(20deg) rotateZ(-8deg) translateY(-4px);
     }
   }
 
@@ -179,7 +180,7 @@ const ReadingCard = styled(Card)`
     position: absolute;
     inset: 0;
     transform-style: preserve-3d;
-    transform: rotateX(7deg) rotateY(30deg) rotateZ(-9deg);
+    transform: rotateX(6deg) rotateY(30deg) rotateZ(-13deg);
     transition: transform 0.45s var(--easing);
   }
 
