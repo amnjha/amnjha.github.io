@@ -5,17 +5,17 @@ import { role, company, openToWork, bookCallUrl } from '@config';
 
 const StyledHeroSection = styled.section`
   max-width: var(--content-width);
-  padding: 140px 0 40px;
+  padding: 118px 0 30px;
 
   @media (max-width: 768px) {
-    padding: 120px 0 32px;
+    padding: 104px 0 24px;
   }
 
   h1 {
     margin: 0;
-    font-size: clamp(32px, 6vw, 44px);
+    font-size: clamp(28px, 6vw, 34px);
     font-weight: 600;
-    line-height: 1.15;
+    line-height: 1.38;
     letter-spacing: -0.02em;
     color: var(--ink);
   }
@@ -24,7 +24,7 @@ const StyledHeroSection = styled.section`
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0 0.28em;
+    gap: 0 0.26em;
   }
 
   .muted {
@@ -43,13 +43,13 @@ const StyledHeroSection = styled.section`
 
   .avatar {
     display: inline-flex;
-    width: 1.3em;
-    height: 1.3em;
-    margin: 0 0.05em;
-    border-radius: var(--radius-md);
+    width: 1.55em;
+    height: 1.55em;
+    margin: 0 0.02em;
+    border-radius: 50%;
     border: 3px solid var(--canvas);
-    box-shadow: 0 0 0 1px var(--hairline-alpha);
-    transform: rotate(-6deg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 0, 0, 0.14);
+    transform: rotate(-8deg);
     overflow: hidden;
     transition: var(--transition);
 
@@ -60,28 +60,27 @@ const StyledHeroSection = styled.section`
     .gatsby-image-wrapper {
       width: 100%;
       height: 100%;
+      border-radius: 50%;
     }
   }
 
   .status {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    margin-left: 0.45em;
-    padding: 0 11px 0 8px;
-    height: 26px;
-    border: 1px solid var(--hairline-alpha);
+    gap: 6px;
+    margin-left: 0.55em;
+    padding: 0 10px 0 7px;
+    height: 24px;
     border-radius: var(--radius-pill);
     background-color: var(--canvas);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--pill-shadow);
     color: var(--ink);
-    font-size: 11px;
-    font-weight: 400;
-    letter-spacing: -0.08px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: -0.05px;
     line-height: 1;
     white-space: nowrap;
     vertical-align: middle;
-    transform: translateY(-0.08em);
 
     .pulse {
       position: relative;
@@ -98,36 +97,38 @@ const StyledHeroSection = styled.section`
         background-color: var(--status-green);
       }
     }
-
-    @media (max-width: 480px) {
-      height: 24px;
-      font-size: 10px;
-    }
   }
 
   .cta {
     display: flex;
     align-items: center;
-    gap: 20px;
-    margin-top: 32px;
+    gap: 14px;
+    margin-top: 22px;
 
     @media (max-width: 600px) {
       flex-direction: column;
       align-items: flex-start;
-      gap: 16px;
+      gap: 14px;
     }
 
     .book {
       ${({ theme }) => theme.mixins.darkPill};
       flex-shrink: 0;
+      min-height: 40px;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.1px;
     }
 
     p {
-      max-width: 360px;
+      max-width: 320px;
       margin: 0;
       color: var(--ink);
-      font-size: var(--fz-md);
-      line-height: 1.47;
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.1px;
+      line-height: 1.55;
     }
   }
 `;
@@ -172,7 +173,7 @@ const Hero = () => (
       <a className="book" href={bookCallUrl} target="_blank" rel="noreferrer">
         Book a call
       </a>
-      <p>Feel free to explore my work and reach out. I’d love to connect!</p>
+      <p>Feel free to explore my portfolio and reach out —I’d love to connect!</p>
     </div>
   </StyledHeroSection>
 );

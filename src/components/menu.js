@@ -7,28 +7,25 @@ import { KEY_CODES } from '@utils';
 import { useOnClickOutside } from '@hooks';
 
 const StyledMenu = styled.div`
-  display: none;
-
-  @media (max-width: 768px) {
-    display: block;
-  }
+  display: block;
 `;
 
-/* button-icon-circular: 44px translucent chip, ink icon */
+/* White circular button with a soft shadow, as in the reference */
 const StyledMenuButton = styled.button`
   ${({ theme }) => theme.mixins.flexCenter};
   position: relative;
   z-index: 10;
-  width: 44px;
-  height: 44px;
+  width: 34px;
+  height: 34px;
   padding: 0;
   border-radius: var(--radius-pill);
-  background-color: var(--surface-chip);
+  background-color: var(--canvas);
+  box-shadow: var(--pill-shadow);
   color: var(--ink);
   transition: var(--transition);
 
   &:hover {
-    background-color: var(--hairline);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06), 0 6px 16px rgba(0, 0, 0, 0.1);
   }
   &:active {
     transform: scale(0.95);
@@ -40,27 +37,28 @@ const StyledMenuButton = styled.button`
 
   .lines {
     position: relative;
-    width: 18px;
-    height: 12px;
+    width: 14px;
+    height: 8px;
   }
 
   .line {
     position: absolute;
-    left: 0;
-    height: 2px;
+    height: 1.5px;
     border-radius: 2px;
     background-color: currentColor;
     transition: var(--transition);
 
     &.top {
       top: 0;
-      width: 18px;
-      transform: ${props => (props.menuOpen ? 'translateY(5px) rotate(45deg)' : 'none')};
+      left: 0;
+      width: 14px;
+      transform: ${props => (props.menuOpen ? 'translateY(3px) rotate(45deg)' : 'none')};
     }
     &.bottom {
-      top: 10px;
-      width: ${props => (props.menuOpen ? '18px' : '11px')};
-      transform: ${props => (props.menuOpen ? 'translateY(-5px) rotate(-45deg)' : 'none')};
+      top: 6px;
+      left: ${props => (props.menuOpen ? '0' : '5px')};
+      width: ${props => (props.menuOpen ? '14px' : '9px')};
+      transform: ${props => (props.menuOpen ? 'translateY(-3px) rotate(-45deg)' : 'none')};
     }
   }
 `;
@@ -77,10 +75,10 @@ const StyledSidebar = styled.aside`
   width: min(75vw, 400px);
   height: 100vh;
   outline: 0;
-  background-color: rgba(245, 245, 247, 0.92);
+  background-color: rgba(255, 255, 255, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-left: 1px solid var(--hairline-alpha);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.06);
   z-index: 9;
   transform: translateX(${props => (props.menuOpen ? 0 : 100)}vw);
   visibility: ${props => (props.menuOpen ? 'visible' : 'hidden')};
@@ -115,7 +113,7 @@ const StyledSidebar = styled.aside`
 
       &:hover,
       &:focus-visible {
-        background-color: var(--canvas);
+        background-color: var(--card);
         color: var(--ink);
       }
     }
@@ -207,21 +205,13 @@ const Menu = () => {
     }
   };
 
-  const onResize = e => {
-    if (e.currentTarget.innerWidth > 768) {
-      setMenuOpen(false);
-    }
-  };
-
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown);
-    window.addEventListener('resize', onResize);
 
     setFocusables();
 
     return () => {
       document.removeEventListener('keydown', onKeyDown);
-      window.removeEventListener('resize', onResize);
     };
   }, []);
 

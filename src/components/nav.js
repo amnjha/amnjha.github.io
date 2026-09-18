@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'gatsby';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
-import { email, navLinks, resumePath } from '@config';
+import { email } from '@config';
 import { useScrollDirection } from '@hooks';
 import { Menu } from '@components';
 import { IconLogo } from '@components/icons';
@@ -14,22 +14,15 @@ const StyledHeader = styled.header`
   z-index: 11;
   width: 100%;
   height: var(--nav-height);
-  padding: 0 48px;
-  background-color: rgba(255, 255, 255, 0.8);
+  padding: 0 24px;
+  background-color: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border-bottom: 1px solid transparent;
   filter: none !important;
   pointer-events: auto !important;
   user-select: auto !important;
   transition: var(--transition);
 
-  @media (max-width: 1080px) {
-    padding: 0 40px;
-  }
-  @media (max-width: 768px) {
-    padding: 0 24px;
-  }
   @media (max-width: 480px) {
     padding: 0 16px;
   }
@@ -38,7 +31,6 @@ const StyledHeader = styled.header`
     !props.scrolledToTop &&
     css`
       height: var(--nav-scroll-height);
-      border-bottom-color: var(--hairline-alpha);
     `};
 
   @media (prefers-reduced-motion: no-preference) {
@@ -63,13 +55,13 @@ const StyledNav = styled.nav`
   .brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 9px;
 
     .logo {
       ${({ theme }) => theme.mixins.flexCenter};
       color: var(--ink);
-      width: 34px;
-      height: 34px;
+      width: 26px;
+      height: 26px;
 
       svg {
         fill: none;
@@ -86,19 +78,17 @@ const StyledNav = styled.nav`
     }
 
     .dot {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
+      margin-top: 8px;
       border-radius: 50%;
       background-color: var(--primary);
-
-      @media (max-width: 400px) {
-        display: none;
-      }
     }
 
     .email {
-      font-size: var(--fz-sm);
-      letter-spacing: -0.224px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: -0.1px;
       color: var(--ink);
       padding: 2px 0;
 
@@ -106,49 +96,6 @@ const StyledNav = styled.nav`
       &:focus-visible {
         color: var(--primary);
       }
-
-      @media (max-width: 400px) {
-        display: none;
-      }
-    }
-  }
-
-  .links {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    @media (max-width: 768px) {
-      display: none;
-    }
-
-    ol {
-      ${({ theme }) => theme.mixins.resetList};
-      display: flex;
-      align-items: center;
-      gap: 4px;
-
-      a {
-        display: inline-flex;
-        align-items: center;
-        min-height: 36px;
-        padding: 0 12px;
-        border-radius: var(--radius-pill);
-        font-size: var(--fz-sm);
-        letter-spacing: -0.224px;
-        color: var(--ink-muted-80);
-
-        &:hover,
-        &:focus-visible {
-          color: var(--ink);
-          background-color: var(--canvas-parchment);
-        }
-      }
-    }
-
-    .resume-button {
-      ${({ theme }) => theme.mixins.smallButton};
-      margin-left: 8px;
     }
   }
 `;
@@ -187,21 +134,6 @@ const Nav = ({ isHome }) => {
           <span className="dot" aria-hidden="true" />
           <a className="email" href={`mailto:${email}`}>
             {email}
-          </a>
-        </div>
-
-        <div className="links">
-          {navLinks && (
-            <ol>
-              {navLinks.map(({ url, name }, i) => (
-                <li key={i}>
-                  <Link to={url}>{name}</Link>
-                </li>
-              ))}
-            </ol>
-          )}
-          <a className="resume-button" href={resumePath} target="_blank" rel="noopener noreferrer">
-            Resume
           </a>
         </div>
 

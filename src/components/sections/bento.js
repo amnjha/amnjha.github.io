@@ -2,23 +2,25 @@ import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
-import { skills, location, reading, resumePath } from '@config';
+import { location, reading, process, socialMedia } from '@config';
 import { Icon } from '@components/icons';
+
+const CARD = 168;
 
 const StyledBento = styled.section`
   max-width: var(--content-width);
-  padding: 0 0 var(--space-section);
+  padding: 0 0 64px;
 
   .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-auto-rows: minmax(0, auto);
-    gap: 20px;
+    grid-auto-rows: minmax(${CARD}px, auto);
+    gap: 18px;
 
-    @media (max-width: 768px) {
+    @media (max-width: 560px) {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-    @media (max-width: 560px) {
+    @media (max-width: 400px) {
       grid-template-columns: minmax(0, 1fr);
     }
   }
@@ -26,67 +28,71 @@ const StyledBento = styled.section`
   .span-2 {
     grid-column: span 2;
 
-    @media (max-width: 560px) {
+    @media (max-width: 400px) {
       grid-column: span 1;
     }
   }
 `;
 
-/* Reference card: parchment surface, soft lift, white label pill */
+/* Reference card: light surface, soft lift, 20px radius, white label pill */
 const Card = styled.article`
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 240px;
-  padding: var(--space-lg);
+  min-height: 0;
+  padding: 14px;
   overflow: hidden;
-  border-radius: 24px;
-  background-color: var(--canvas-parchment);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(0, 0, 0, 0.06);
+  border-radius: 20px;
+  background-color: var(--card);
+  box-shadow: var(--card-shadow);
 
   .label {
     align-self: flex-start;
-    margin-bottom: 16px;
-    padding: 7px 12px;
+    margin-bottom: 10px;
+    padding: 5px 9px;
     border-radius: var(--radius-pill);
     background-color: var(--canvas);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--pill-shadow);
     color: var(--ink);
-    font-size: var(--fz-xs);
-    letter-spacing: -0.12px;
-    line-height: 1.29;
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: -0.05px;
+    line-height: 1.2;
     pointer-events: none;
+    white-space: nowrap;
   }
 
   h3 {
     margin: 0;
-    font-size: var(--fz-md);
+    font-size: 11px;
     font-weight: 600;
-    line-height: 1.24;
-    letter-spacing: -0.374px;
+    line-height: 1.25;
+    letter-spacing: -0.1px;
   }
 
   .meta {
     color: var(--ink-muted-24);
-    font-size: var(--fz-xs);
-    letter-spacing: -0.12px;
-    line-height: 1.4;
+    font-size: 8.5px;
+    font-weight: 500;
+    letter-spacing: 0;
+    line-height: 1.35;
   }
 `;
 
 const ExperienceCard = styled(Card)`
+  height: ${CARD}px;
+
   .timeline {
     ${({ theme }) => theme.mixins.resetList};
     position: relative;
     flex: 1;
     min-height: 0;
-    max-height: 300px;
-    margin-left: 4px;
-    padding-left: 18px;
+    margin: 4px 0 0 4px;
+    padding: 6px 0 6px 14px;
     overflow-y: auto;
     scrollbar-width: none;
-    -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent);
-    mask-image: linear-gradient(to bottom, #000 82%, transparent);
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 88%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 14%, #000 88%, transparent);
 
     &::-webkit-scrollbar {
       display: none;
@@ -95,36 +101,37 @@ const ExperienceCard = styled(Card)`
     &:before {
       content: '';
       position: absolute;
-      top: 6px;
-      bottom: 6px;
-      left: 3px;
+      top: 8px;
+      bottom: 8px;
+      left: 2px;
       width: 1px;
-      background-color: var(--hairline);
+      background-color: var(--ink-muted-24);
     }
 
     li {
       position: relative;
-      padding-bottom: 14px;
+      padding-bottom: 11px;
 
       &:before {
         content: '';
         position: absolute;
-        top: 5px;
-        left: -18px;
-        width: 7px;
-        height: 7px;
+        top: 4px;
+        left: -14.5px;
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
         background-color: var(--ink);
-      }
-
-      &:first-child:before {
-        background-color: var(--primary);
       }
     }
 
     h3 {
-      font-size: var(--fz-sm);
-      letter-spacing: -0.224px;
+      font-size: 10px;
+    }
+
+    .meta {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     a {
@@ -133,13 +140,91 @@ const ExperienceCard = styled(Card)`
   }
 `;
 
-const ReadingCard = styled(Card)`
-  min-height: 330px;
+const WorkCard = styled(Card)`
+  align-items: center;
 
+  .label {
+    align-self: flex-start;
+  }
+
+  .stack {
+    position: relative;
+    width: 100%;
+    height: 84px;
+    margin-top: 2px;
+  }
+
+  .shot {
+    position: absolute;
+    top: 6px;
+    left: 50%;
+    width: 78px;
+    height: 58px;
+    border-radius: 8px;
+    border: 2.5px solid var(--canvas);
+    overflow: hidden;
+    background-color: var(--canvas);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+    transition: var(--transition);
+
+    .gatsby-image-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+
+    &:nth-child(1) {
+      transform: translateX(-88%) translateY(6px) rotate(-14deg);
+      z-index: 1;
+    }
+    &:nth-child(2) {
+      transform: translateX(-12%) translateY(6px) rotate(12deg);
+      z-index: 2;
+    }
+    &:nth-child(3) {
+      transform: translateX(-50%) scale(1.06);
+      z-index: 3;
+    }
+
+    &:hover,
+    &:focus-visible {
+      z-index: 4;
+      transform: translateX(-50%) rotate(0deg) scale(1.1);
+    }
+  }
+
+  .title {
+    margin-top: 2px;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+    color: var(--ink);
+  }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 3px;
+    font-size: 8.5px;
+    font-weight: 500;
+    color: var(--ink-muted-48);
+
+    svg {
+      width: 9px;
+      height: 9px;
+      color: var(--primary);
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: var(--primary);
+    }
+  }
+`;
+
+const ReadingCard = styled(Card)`
   h3 {
-    font-size: var(--fz-sm);
-    letter-spacing: -0.224px;
-    max-width: 14ch;
+    max-width: 13ch;
   }
 
   .meta {
@@ -150,11 +235,11 @@ const ReadingCard = styled(Card)`
   .frame {
     position: relative;
     flex: 1;
-    width: 62%;
-    min-height: 190px;
-    margin: 18px auto -24px;
-    border-radius: 22px 22px 0 0;
-    background-color: var(--surface-pearl);
+    width: 66%;
+    min-height: 72px;
+    margin: 10px auto -14px;
+    border-radius: 14px 14px 0 0;
+    background-color: var(--canvas);
     overflow: hidden;
   }
 
@@ -162,17 +247,17 @@ const ReadingCard = styled(Card)`
   .book {
     position: absolute;
     left: 24%;
-    top: 10%;
+    top: 12%;
     display: block;
-    width: 156px;
-    height: 216px;
-    perspective: 720px;
+    width: 96px;
+    height: 132px;
+    perspective: 520px;
     perspective-origin: 20% 20%;
     color: inherit;
 
     &:hover .book3d,
     &:focus-visible .book3d {
-      transform: rotateX(4deg) rotateY(20deg) rotateZ(-8deg) translateY(-4px);
+      transform: rotateX(4deg) rotateY(20deg) rotateZ(-8deg) translateY(-3px);
     }
   }
 
@@ -194,10 +279,9 @@ const ReadingCard = styled(Card)`
   .cover {
     inset: 0;
     overflow: hidden;
-    border-radius: 2px 5px 5px 2px;
+    border-radius: 1px 3px 3px 1px;
     background-color: var(--surface-tile-1);
     transform: translateZ(0);
-    /* product shadow: the single shadow in the system, reserved for imagery */
     box-shadow: var(--product-shadow);
 
     .gatsby-image-wrapper {
@@ -222,25 +306,25 @@ const ReadingCard = styled(Card)`
 
   .back {
     inset: 0;
-    border-radius: 2px 5px 5px 2px;
+    border-radius: 1px 3px 3px 1px;
     background-color: #b0342a;
-    transform: translateZ(-26px);
+    transform: translateZ(-16px);
   }
 
   .pages {
-    top: 3px;
-    bottom: 3px;
+    top: 2px;
+    bottom: 2px;
     left: 0;
-    width: 26px;
+    width: 16px;
     transform-origin: left center;
-    transform: rotateY(-90deg) translateX(-26px);
+    transform: rotateY(-90deg) translateX(-16px);
     background-color: #f6f6f4;
     background-image: repeating-linear-gradient(
       to right,
-      rgba(0, 0, 0, 0) 0 2px,
-      rgba(0, 0, 0, 0.09) 2px 3px
+      rgba(0, 0, 0, 0) 0 1.5px,
+      rgba(0, 0, 0, 0.09) 1.5px 2.5px
     );
-    box-shadow: inset -6px 0 8px rgba(0, 0, 0, 0.12);
+    box-shadow: inset -4px 0 6px rgba(0, 0, 0, 0.12);
   }
 
   /* Typographic fallback shown until a cover image is added */
@@ -250,19 +334,19 @@ const ReadingCard = styled(Card)`
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    padding: 14px 12px;
+    padding: 10px 8px;
     background-color: var(--surface-tile-1);
     color: var(--on-dark);
     font-family: Georgia, 'Times New Roman', serif;
 
     .t {
-      font-size: 15px;
+      font-size: 10px;
       line-height: 1.15;
       letter-spacing: 0.02em;
       text-transform: uppercase;
     }
     .a {
-      font-size: 9px;
+      font-size: 6px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: #cccccc;
@@ -270,45 +354,14 @@ const ReadingCard = styled(Card)`
   }
 `;
 
-const StackCard = styled(Card)`
-  .chips {
-    ${({ theme }) => theme.mixins.resetList};
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-
-    li {
-      padding: 6px 11px;
-      border-radius: var(--radius-pill);
-      background-color: var(--canvas);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-      color: var(--ink);
-      font-size: var(--fz-xs);
-      letter-spacing: -0.12px;
-      line-height: 1.29;
-    }
-  }
-
-  .more {
-    margin-top: auto;
-    padding-top: 16px;
-    font-size: var(--fz-xs);
-    color: var(--ink-muted-48);
-
-    a {
-      color: var(--primary);
-    }
-  }
-`;
-
 const MapCard = styled(Card)`
   padding: 0;
-  min-height: 240px;
+  background-color: var(--canvas);
 
   .label {
     position: absolute;
-    top: 16px;
-    left: 16px;
+    top: 12px;
+    left: 12px;
     z-index: 2;
     margin: 0;
   }
@@ -325,136 +378,62 @@ const MapCard = styled(Card)`
     position: relative;
     z-index: 1;
     margin-top: auto;
-    padding: 60px 24px 22px;
+    padding: 40px 12px 14px;
     text-align: center;
-    background: linear-gradient(to bottom, rgba(245, 245, 247, 0) 0%, var(--canvas-parchment) 45%);
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, var(--canvas) 48%);
 
     .city {
-      font-size: var(--fz-lg);
-      font-weight: 400;
+      font-size: 14px;
+      font-weight: 500;
       letter-spacing: 0.32em;
       text-transform: uppercase;
       color: var(--ink);
     }
     .country {
-      margin-top: 2px;
-      font-size: var(--fz-xxs);
-      letter-spacing: 0.3em;
+      margin-top: 1px;
+      font-size: 7px;
+      letter-spacing: 0.32em;
       text-transform: uppercase;
-      color: var(--ink-muted-48);
+      color: var(--ink-muted-24);
     }
     .coords {
-      margin-top: 6px;
-      font-family: var(--font-mono);
-      font-size: 9px;
-      letter-spacing: 0.08em;
-      color: var(--ink-muted-48);
+      margin-top: 3px;
+      font-size: 6px;
+      letter-spacing: 0.1em;
+      color: var(--ink-muted-24);
     }
   }
 `;
 
-const ProjectsCard = styled(Card)`
-  .project {
-    display: grid;
-    grid-template-columns: 180px minmax(0, 1fr);
-    gap: 20px;
-    align-items: start;
-    padding: 4px 0 20px;
-
-    @media (max-width: 560px) {
-      grid-template-columns: minmax(0, 1fr);
-    }
+const ProcessCard = styled(Card)`
+  .step {
+    flex: 1;
+    padding: 12px 0 12px;
   }
 
-  .shot {
-    display: block;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    background-color: var(--canvas);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-    aspect-ratio: 4 / 3;
-
-    .gatsby-image-wrapper {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  .project h3 {
-    font-size: var(--fz-md);
+  .step h3 {
+    font-size: 12px;
     margin-bottom: 6px;
-
-    a {
-      color: var(--ink);
-
-      &:hover,
-      &:focus-visible {
-        color: var(--primary);
-      }
-    }
   }
 
-  .description {
+  .step p {
+    margin: 0;
     color: var(--ink-muted-48);
-    font-size: var(--fz-xs);
-    line-height: 1.5;
-    letter-spacing: -0.12px;
-
-    p {
-      margin: 0;
-    }
-    a {
-      ${({ theme }) => theme.mixins.inlineLink};
-    }
-  }
-
-  .tech {
-    ${({ theme }) => theme.mixins.resetList};
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 12px;
-
-    li {
-      padding: 4px 9px;
-      border-radius: var(--radius-pill);
-      background-color: var(--canvas);
-      font-size: var(--fz-xxs);
-      letter-spacing: -0.08px;
-      line-height: 1.3;
-      color: var(--ink);
-    }
-  }
-
-  .links {
-    display: flex;
-    gap: 6px;
-    margin-top: 12px;
-
-    a {
-      ${({ theme }) => theme.mixins.pearlCapsule};
-      gap: 6px;
-      padding: 5px 10px;
-      border: 0;
-      border-radius: var(--radius-pill);
-      background-color: var(--canvas);
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-      font-size: var(--fz-xs);
-
-      svg {
-        width: 12px;
-        height: 12px;
-      }
-    }
+    font-size: 8.5px;
+    font-weight: 500;
+    line-height: 1.45;
+    letter-spacing: 0;
+    max-width: 60ch;
   }
 
   .tabs {
     display: flex;
-    gap: 4px;
+    gap: 2px;
     margin-top: auto;
-    padding: 4px;
+    padding: 3px;
     border-radius: var(--radius-pill);
     background-color: var(--canvas);
+    box-shadow: var(--pill-shadow);
     overflow-x: auto;
     scrollbar-width: none;
 
@@ -466,17 +445,18 @@ const ProjectsCard = styled(Card)`
   .tab {
     flex: 1;
     min-width: max-content;
-    min-height: 36px;
-    padding: 0 14px;
+    min-height: 26px;
+    padding: 0 12px;
     border-radius: var(--radius-pill);
     background: transparent;
-    color: var(--ink-muted-80);
-    font-size: var(--fz-xs);
-    letter-spacing: -0.12px;
+    color: var(--ink);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: -0.05px;
     transition: var(--transition);
 
     &:hover {
-      color: var(--ink);
+      color: var(--primary);
     }
     &:active {
       transform: scale(0.95);
@@ -493,6 +473,44 @@ const ProjectsCard = styled(Card)`
   }
 `;
 
+/* Deterministic pseudo-random street network so SSR and client output match */
+const mapPaths = (() => {
+  let seed = 7;
+  const rnd = () => {
+    seed = (seed * 9301 + 49297) % 233280;
+    return seed / 233280;
+  };
+  const paths = [];
+  // arterial roads
+  for (let i = 0; i < 7; i += 1) {
+    const y = 18 + i * 36 + rnd() * 10;
+    const c1 = rnd() * 24 - 12;
+    const c2 = rnd() * 24 - 12;
+    paths.push({ d: `M-10 ${y} C 70 ${y + c1}, 150 ${y + c2}, 250 ${y + c1 / 2}`, w: 1.2, o: 0.5 });
+  }
+  for (let i = 0; i < 6; i += 1) {
+    const x = 20 + i * 42 + rnd() * 12;
+    const c1 = rnd() * 24 - 12;
+    const c2 = rnd() * 24 - 12;
+    paths.push({ d: `M${x} -10 C ${x + c1} 70, ${x + c2} 150, ${x + c1 / 2} 250`, w: 1.2, o: 0.5 });
+  }
+  // minor streets
+  for (let i = 0; i < 60; i += 1) {
+    const x = rnd() * 240;
+    const y = rnd() * 240;
+    const len = 18 + rnd() * 40;
+    const angle = rnd() > 0.5 ? rnd() * 0.3 - 0.15 : Math.PI / 2 + rnd() * 0.3 - 0.15;
+    const x2 = x + Math.cos(angle) * len;
+    const y2 = y + Math.sin(angle) * len;
+    paths.push({
+      d: `M${x.toFixed(1)} ${y.toFixed(1)} L ${x2.toFixed(1)} ${y2.toFixed(1)}`,
+      w: 0.5,
+      o: 0.32,
+    });
+  }
+  return paths;
+})();
+
 const MapArt = () => (
   <svg
     className="map"
@@ -500,32 +518,18 @@ const MapArt = () => (
     preserveAspectRatio="xMidYMid slice"
     aria-hidden="true"
     focusable="false">
+    <rect width="240" height="240" fill="#fbfbfb" />
+    <path
+      d="M-10 150 C 40 130, 70 170, 120 150 S 200 120, 250 140 L 250 175 C 200 165, 160 190, 120 178 S 40 170, -10 185 Z"
+      fill="#eeeeee"
+    />
     <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round">
-      <g strokeWidth="0.6" opacity="0.18">
-        <path d="M-10 60 C 40 55, 70 75, 120 62 S 200 40, 250 58" />
-        <path d="M-10 128 C 30 120, 60 140, 110 130 S 190 118, 250 132" />
-        <path d="M-10 190 C 40 182, 80 200, 130 188 S 200 176, 250 190" />
-        <path d="M62 -10 C 58 40, 70 80, 60 120 S 66 200, 58 250" />
-        <path d="M128 -10 C 132 40, 122 90, 130 130 S 126 200, 134 250" />
-        <path d="M190 -10 C 186 50, 198 100, 188 150 S 194 210, 186 250" />
-      </g>
-      <g strokeWidth="1.4" opacity="0.5">
-        <path d="M-10 96 C 30 92, 80 112, 120 98 S 200 76, 250 94" />
-        <path d="M96 -10 C 92 50, 106 100, 96 150 S 104 210, 94 250" />
-        <path d="M158 -10 C 164 60, 150 120, 162 180 S 154 230, 160 250" />
-      </g>
-      <g strokeWidth="0.8" opacity="0.32">
-        <path d="M20 20 L 50 44 L 84 30 L 118 52 L 150 34 L 184 58 L 226 30" />
-        <path d="M14 160 L 46 148 L 78 168 L 116 152 L 146 176 L 190 158 L 232 172" />
-        <path d="M40 214 L 74 204 L 108 222 L 140 208 L 178 224 L 214 210" />
-      </g>
-      <g strokeWidth="1" opacity="0.28">
-        <ellipse cx="150" cy="150" rx="26" ry="16" />
-        <ellipse cx="70" cy="70" rx="18" ry="11" />
-      </g>
+      {mapPaths.map((p, i) => (
+        <path key={i} d={p.d} strokeWidth={p.w} opacity={p.o} />
+      ))}
     </g>
-    <circle cx="120" cy="104" r="4" fill="#0066cc" />
-    <circle cx="120" cy="104" r="9" fill="#0066cc" opacity="0.18" />
+    <circle cx="118" cy="104" r="3.5" fill="#1d1d1f" />
+    <circle cx="118" cy="104" r="8" fill="#1d1d1f" opacity="0.12" />
   </svg>
 );
 
@@ -548,6 +552,21 @@ const Bento = () => {
           }
         }
       }
+      shots: allFile(
+        filter: {
+          sourceInstanceName: { eq: "content" }
+          relativeDirectory: { regex: "/^featured/" }
+          extension: { in: ["png", "jpg", "jpeg"] }
+        }
+        sort: { fields: name, order: ASC }
+      ) {
+        nodes {
+          name
+          childImageSharp {
+            gatsbyImageData(width: 240, placeholder: BLURRED, formats: [AUTO, WEBP])
+          }
+        }
+      }
       featured: allMarkdownRemark(
         filter: { fileAbsolutePath: { regex: "/content/featured/" } }
         sort: { fields: [frontmatter___date], order: ASC }
@@ -558,14 +577,7 @@ const Bento = () => {
               title
               external
               github
-              tech
-              cover {
-                childImageSharp {
-                  gatsbyImageData(width: 480, placeholder: BLURRED, formats: [AUTO, WEBP])
-                }
-              }
             }
-            html
           }
         }
       }
@@ -575,7 +587,7 @@ const Bento = () => {
         nodes {
           name
           childImageSharp {
-            gatsbyImageData(width: 400, placeholder: BLURRED, formats: [AUTO, WEBP])
+            gatsbyImageData(width: 300, placeholder: BLURRED, formats: [AUTO, WEBP])
           }
         }
       }
@@ -583,14 +595,13 @@ const Bento = () => {
   `);
 
   const jobs = data.jobs.edges.map(({ node }) => node.frontmatter);
-  const featured = data.featured.edges.map(({ node }) => ({
-    ...node.frontmatter,
-    html: node.html,
-  }));
+  const shots = data.shots.nodes.slice(0, 3);
+  const featured = data.featured.edges.map(({ node }) => node.frontmatter);
   const bookCover = getImage(data.bookCovers.nodes.find(n => n.name === reading.cover));
+  const github = (socialMedia.find(s => s.name === 'GitHub') || {}).url;
 
-  const [activeProject, setActiveProject] = useState(0);
-  const project = featured[activeProject];
+  const [activeStep, setActiveStep] = useState(0);
+  const step = process[activeStep];
 
   return (
     <StyledBento>
@@ -613,6 +624,31 @@ const Bento = () => {
             ))}
           </ol>
         </ExperienceCard>
+
+        <WorkCard id="work" tabIndex="-1">
+          <span className="label">Featured work</span>
+          <div className="stack">
+            {shots.map(({ name, childImageSharp }, i) => {
+              const image = getImage(childImageSharp);
+              const project = featured[i % featured.length] || {};
+              return (
+                <a
+                  key={name}
+                  className="shot"
+                  href={project.external || project.github || github}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={project.title || name}>
+                  {image && <GatsbyImage image={image} alt={project.title || name} />}
+                </a>
+              );
+            })}
+          </div>
+          <div className="title">Aman’s Projects</div>
+          <a className="cta" href={github} target="_blank" rel="noreferrer">
+            <Icon name="GitHub" /> View on GitHub
+          </a>
+        </WorkCard>
 
         <ReadingCard>
           <span className="label">What I’m reading</span>
@@ -643,22 +679,6 @@ const Bento = () => {
           </div>
         </ReadingCard>
 
-        <StackCard>
-          <span className="label">What I build with</span>
-          <ul className="chips">
-            {skills.map((skill, i) => (
-              <li key={i}>{skill}</li>
-            ))}
-          </ul>
-          <div className="more">
-            Full stack and history in my{' '}
-            <a href={resumePath} target="_blank" rel="noreferrer">
-              resume
-            </a>
-            .
-          </div>
-        </StackCard>
-
         <MapCard>
           <span className="label">Map</span>
           <MapArt />
@@ -669,64 +689,29 @@ const Bento = () => {
           </div>
         </MapCard>
 
-        <ProjectsCard className="span-2" id="projects" tabIndex="-1">
-          <span className="label">Featured projects</span>
-          {project && (
-            <div className="project" role="tabpanel" id={`project-panel-${activeProject}`}>
-              {getImage(project.cover) && (
-                <a
-                  className="shot"
-                  href={project.external || project.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={project.title}>
-                  <GatsbyImage image={getImage(project.cover)} alt={project.title} />
-                </a>
-              )}
-              <div>
-                <h3>
-                  <a href={project.external || project.github} target="_blank" rel="noreferrer">
-                    {project.title}
-                  </a>
-                </h3>
-                <div className="description" dangerouslySetInnerHTML={{ __html: project.html }} />
-                {project.tech && (
-                  <ul className="tech">
-                    {project.tech.map((t, i) => (
-                      <li key={i}>{t}</li>
-                    ))}
-                  </ul>
-                )}
-                <div className="links">
-                  {project.github && (
-                    <a href={project.github} target="_blank" rel="noreferrer">
-                      <Icon name="GitHub" /> GitHub
-                    </a>
-                  )}
-                  {project.external && (
-                    <a href={project.external} target="_blank" rel="noreferrer">
-                      <Icon name="External" /> Visit
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-          <div className="tabs" role="tablist" aria-label="Featured projects">
-            {featured.map((item, i) => (
+        <ProcessCard className="span-2" id="process" tabIndex="-1">
+          <span className="label">How I work</span>
+          <div className="step" role="tabpanel" id={`step-panel-${activeStep}`}>
+            <h3>
+              {String(activeStep + 1).padStart(2, '0')} {step.title}
+            </h3>
+            <p>{step.description}</p>
+          </div>
+          <div className="tabs" role="tablist" aria-label="How I work">
+            {process.map((item, i) => (
               <button
                 key={i}
                 type="button"
                 className="tab"
                 role="tab"
-                aria-selected={activeProject === i}
-                aria-controls={`project-panel-${i}`}
-                onClick={() => setActiveProject(i)}>
-                {item.title}
+                aria-selected={activeStep === i}
+                aria-controls={`step-panel-${i}`}
+                onClick={() => setActiveStep(i)}>
+                Step {String(i + 1).padStart(2, '0')}
               </button>
             ))}
           </div>
-        </ProjectsCard>
+        </ProcessCard>
       </div>
     </StyledBento>
   );

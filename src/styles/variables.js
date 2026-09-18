@@ -8,14 +8,17 @@ import { css } from 'styled-components';
 const variables = css`
   :root {
     /* Apple tokens */
-    --primary: #0066cc;
-    --primary-focus: #0071e3;
-    --primary-on-dark: #2997ff;
-    --primary-tint: rgba(0, 102, 204, 0.08);
+    --primary: #f0874b;
+    --primary-focus: #e97635;
+    --primary-on-dark: #f6a06e;
+    --primary-tint: rgba(240, 135, 75, 0.12);
     --ink: #1d1d1f;
     --ink-muted-80: #333333;
     --ink-muted-48: #7a7a7a;
-    --ink-muted-24: #b8b8bd;
+    --ink-muted-24: #c9c9ce;
+    --card: #f8f8fa;
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 10px 28px rgba(0, 0, 0, 0.07);
+    --pill-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.06);
     --divider-soft: #f0f0f0;
     --hairline: #e0e0e0;
     --hairline-alpha: rgba(0, 0, 0, 0.08);
@@ -77,9 +80,9 @@ const variables = css`
     --space-xxl: 48px;
     --space-section: 80px;
 
-    --content-width: 760px;
-    --nav-height: 88px;
-    --nav-scroll-height: 64px;
+    --content-width: 540px;
+    --nav-height: 76px;
+    --nav-scroll-height: 60px;
 
     --tab-height: 42px;
     --tab-width: 120px;

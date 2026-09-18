@@ -4,9 +4,9 @@ import { socialMedia, email } from '@config';
 import { Icon } from '@components/icons';
 
 const StyledFooter = styled.footer`
-  background-color: var(--canvas-parchment);
-  color: var(--ink-muted-80);
-  padding: 40px 48px;
+  background-color: var(--canvas);
+  color: var(--ink-muted-48);
+  padding: 32px 48px 40px;
 
   @media (max-width: 1080px) {
     padding: 40px 40px;
@@ -30,13 +30,18 @@ const StyledFooter = styled.footer`
     }
   }
 
+  .inner {
+    padding-top: 24px;
+    border-top: 1px solid var(--divider-soft);
+  }
+
   .credit {
-    font-size: var(--fz-xs);
+    font-size: 11px;
     letter-spacing: -0.12px;
     line-height: 1.6;
 
     a {
-      color: var(--ink-muted-80);
+      color: var(--ink-muted-48);
 
       &:hover,
       &:focus-visible {
@@ -54,20 +59,20 @@ const StyledSocialLinks = styled.div`
 
     a {
       ${({ theme }) => theme.mixins.flexCenter};
-      width: 40px;
-      height: 40px;
+      width: 32px;
+      height: 32px;
       border-radius: var(--radius-pill);
-      color: var(--ink-muted-80);
+      color: var(--ink-muted-48);
 
       &:hover,
       &:focus-visible {
         color: var(--primary);
-        background-color: var(--canvas);
+        background-color: var(--card);
       }
 
       svg {
-        width: 18px;
-        height: 18px;
+        width: 15px;
+        height: 15px;
       }
     }
   }
