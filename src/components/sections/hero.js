@@ -66,33 +66,42 @@ const StyledHeroSection = styled.section`
   .status {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    margin-left: 0.4em;
-    padding: 7px 14px;
+    gap: 7px;
+    margin-left: 0.45em;
+    padding: 0 11px 0 8px;
+    height: 26px;
     border: 1px solid var(--hairline-alpha);
     border-radius: var(--radius-pill);
     background-color: var(--canvas);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     color: var(--ink);
-    font-size: var(--fz-sm);
+    font-size: 11px;
     font-weight: 400;
-    letter-spacing: -0.224px;
-    line-height: 1.29;
+    letter-spacing: -0.08px;
+    line-height: 1;
+    white-space: nowrap;
     vertical-align: middle;
+    transform: translateY(-0.08em);
 
     .pulse {
       position: relative;
-      width: 8px;
-      height: 8px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background-color: var(--primary);
+      background-color: var(--status-green-tint);
 
       &:after {
         content: '';
         position: absolute;
-        inset: -4px;
+        inset: 3px;
         border-radius: 50%;
-        background-color: var(--primary-tint);
+        background-color: var(--status-green);
       }
+    }
+
+    @media (max-width: 480px) {
+      height: 24px;
+      font-size: 10px;
     }
   }
 

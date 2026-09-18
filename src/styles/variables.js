@@ -25,6 +25,8 @@ const variables = css`
     --surface-tile-1: #272729;
     --surface-black: #000000;
     --surface-chip: rgba(210, 210, 215, 0.64);
+    --status-green: #34c759;
+    --status-green-tint: rgba(52, 199, 89, 0.22);
     --on-primary: #ffffff;
     --on-dark: #ffffff;
     --product-shadow: rgba(0, 0, 0, 0.22) 3px 5px 30px 0;
