@@ -32,22 +32,29 @@ const StyledBento = styled.section`
   }
 `;
 
-/* store-utility-card: white, 1px hairline, 18px radius, 24px padding, no shadow */
+/* Reference card: parchment surface, soft lift, white label pill */
 const Card = styled.article`
-  ${({ theme }) => theme.mixins.card};
   position: relative;
   display: flex;
   flex-direction: column;
   min-height: 240px;
+  padding: var(--space-lg);
   overflow: hidden;
+  border-radius: 24px;
+  background-color: var(--canvas-parchment);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 30px rgba(0, 0, 0, 0.06);
 
   .label {
-    ${({ theme }) => theme.mixins.pearlCapsule};
     align-self: flex-start;
     margin-bottom: 16px;
-    padding: 5px 10px;
+    padding: 7px 12px;
+    border-radius: var(--radius-pill);
+    background-color: var(--canvas);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    color: var(--ink);
     font-size: var(--fz-xs);
     letter-spacing: -0.12px;
+    line-height: 1.29;
     pointer-events: none;
   }
 
@@ -60,7 +67,7 @@ const Card = styled.article`
   }
 
   .meta {
-    color: var(--ink-muted-48);
+    color: var(--ink-muted-24);
     font-size: var(--fz-xs);
     letter-spacing: -0.12px;
     line-height: 1.4;
@@ -139,22 +146,32 @@ const ReadingCard = styled(Card)`
     margin-top: 2px;
   }
 
-  /* 3D hardcover seen from an angle, hanging off the bottom edge of the card */
+  /* Lighter inset panel that runs off the card's right and bottom edges */
+  .frame {
+    position: relative;
+    flex: 1;
+    min-height: 190px;
+    margin: 18px -32px -32px 24px;
+    border-radius: 22px;
+    background-color: var(--surface-pearl);
+    overflow: hidden;
+  }
+
+  /* 3D hardcover seen from an angle */
   .book {
     position: absolute;
-    left: 50%;
-    bottom: -30px;
+    left: 30%;
+    top: 12%;
     display: block;
-    width: 176px;
-    height: 245px;
-    margin-left: -78px;
+    width: 150px;
+    height: 208px;
     perspective: 720px;
-    perspective-origin: 40% 40%;
+    perspective-origin: 30% 30%;
     color: inherit;
 
     &:hover .book3d,
     &:focus-visible .book3d {
-      transform: rotateX(4deg) rotateY(18deg) rotateZ(-4deg) translateY(-6px);
+      transform: rotateX(4deg) rotateY(16deg) rotateZ(-5deg) translateY(-4px);
     }
   }
 
@@ -162,7 +179,7 @@ const ReadingCard = styled(Card)`
     position: absolute;
     inset: 0;
     transform-style: preserve-3d;
-    transform: rotateX(6deg) rotateY(34deg) rotateZ(-7deg);
+    transform: rotateX(7deg) rotateY(30deg) rotateZ(-9deg);
     transition: transform 0.45s var(--easing);
   }
 
@@ -247,7 +264,7 @@ const ReadingCard = styled(Card)`
       font-size: 9px;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--body-muted, #cccccc);
+      color: #cccccc;
     }
   }
 `;
@@ -261,9 +278,9 @@ const StackCard = styled(Card)`
 
     li {
       padding: 6px 11px;
-      border: 1px solid var(--hairline-alpha);
       border-radius: var(--radius-pill);
       background-color: var(--canvas);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
       color: var(--ink);
       font-size: var(--fz-xs);
       letter-spacing: -0.12px;
@@ -286,7 +303,6 @@ const StackCard = styled(Card)`
 const MapCard = styled(Card)`
   padding: 0;
   min-height: 240px;
-  background-color: var(--canvas-parchment);
 
   .label {
     position: absolute;
@@ -351,10 +367,10 @@ const ProjectsCard = styled(Card)`
 
   .shot {
     display: block;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     overflow: hidden;
-    border: 1px solid var(--hairline-alpha);
-    background-color: var(--canvas-parchment);
+    background-color: var(--canvas);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
     aspect-ratio: 4 / 3;
 
     .gatsby-image-wrapper {
@@ -400,8 +416,8 @@ const ProjectsCard = styled(Card)`
 
     li {
       padding: 4px 9px;
-      border: 1px solid var(--hairline-alpha);
       border-radius: var(--radius-pill);
+      background-color: var(--canvas);
       font-size: var(--fz-xxs);
       letter-spacing: -0.08px;
       line-height: 1.3;
@@ -418,6 +434,10 @@ const ProjectsCard = styled(Card)`
       ${({ theme }) => theme.mixins.pearlCapsule};
       gap: 6px;
       padding: 5px 10px;
+      border: 0;
+      border-radius: var(--radius-pill);
+      background-color: var(--canvas);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
       font-size: var(--fz-xs);
 
       svg {
@@ -433,7 +453,7 @@ const ProjectsCard = styled(Card)`
     margin-top: auto;
     padding: 4px;
     border-radius: var(--radius-pill);
-    background-color: var(--canvas-parchment);
+    background-color: var(--canvas);
     overflow-x: auto;
     scrollbar-width: none;
 
@@ -597,27 +617,29 @@ const Bento = () => {
           <span className="label">What I’m reading</span>
           <h3>{reading.title}</h3>
           <div className="meta">{reading.author}</div>
-          <a
-            className="book"
-            href={reading.url}
-            target="_blank"
-            rel="noreferrer"
-            aria-label={`${reading.title} by ${reading.author}`}>
-            <span className="book3d">
-              <span className="back" aria-hidden="true" />
-              <span className="pages" aria-hidden="true" />
-              <span className="cover">
-                {bookCover ? (
-                  <GatsbyImage image={bookCover} alt={`${reading.title} cover`} />
-                ) : (
-                  <span className="cover-fallback" aria-hidden="true">
-                    <span className="t">{reading.title}</span>
-                    <span className="a">{reading.author}</span>
-                  </span>
-                )}
+          <div className="frame">
+            <a
+              className="book"
+              href={reading.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${reading.title} by ${reading.author}`}>
+              <span className="book3d">
+                <span className="back" aria-hidden="true" />
+                <span className="pages" aria-hidden="true" />
+                <span className="cover">
+                  {bookCover ? (
+                    <GatsbyImage image={bookCover} alt={`${reading.title} cover`} />
+                  ) : (
+                    <span className="cover-fallback" aria-hidden="true">
+                      <span className="t">{reading.title}</span>
+                      <span className="a">{reading.author}</span>
+                    </span>
+                  )}
+                </span>
               </span>
-            </span>
-          </a>
+            </a>
+          </div>
         </ReadingCard>
 
         <StackCard>
