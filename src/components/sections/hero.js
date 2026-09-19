@@ -5,7 +5,7 @@ import { role, company, openToWork, bookCallUrl } from '@config';
 
 const StyledHeroSection = styled.section`
   max-width: var(--content-width);
-  padding: 118px 0 30px;
+  padding: 92px 0 24px;
 
   @media (max-width: 768px) {
     padding: 104px 0 24px;
