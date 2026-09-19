@@ -1,109 +1,219 @@
-import React, { useState, useEffect } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import React from 'react';
+import { StaticImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
-import { navDelay, loaderDelay } from '@utils';
-import { usePrefersReducedMotion } from '@hooks';
+import { role, company, openToWork, bookCallUrl } from '@config';
 
 const StyledHeroSection = styled.section`
-  ${({ theme }) => theme.mixins.flexCenter};
-  flex-direction: column;
-  align-items: flex-start;
-  min-height: 100vh;
-  height: 100vh;
-  padding: 0;
+  max-width: var(--content-width);
+  padding: 118px 0 30px;
 
-  @media (max-height: 700px) and (min-width: 700px), (max-width: 360px) {
-    height: auto;
-    padding-top: var(--nav-height);
+  @media (max-width: 768px) {
+    padding: 104px 0 24px;
   }
 
   h1 {
-    margin: 0 0 30px 4px;
-    color: var(--green);
-    font-family: var(--font-mono);
-    font-size: clamp(var(--fz-sm), 5vw, var(--fz-md));
-    font-weight: 400;
+    margin: 0;
+    font-size: clamp(28px, 6vw, 34px);
+    font-weight: 600;
+    line-height: 1.38;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
 
-    @media (max-width: 480px) {
-      margin: 0 0 20px 2px;
+  .line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0 0.26em;
+  }
+
+  .muted {
+    color: var(--ink-muted-24);
+    font-weight: 600;
+  }
+
+  .accent {
+    color: var(--primary);
+
+    .teal {
+      color: var(--teal);
+    }
+    .orange {
+      color: var(--primary);
+    }
+
+    &:hover,
+    &:focus-visible {
+      .teal {
+        color: var(--teal-focus);
+      }
+      .orange {
+        color: var(--primary-focus);
+      }
     }
   }
 
-  h3 {
-    margin-top: 5px;
-    color: var(--slate);
-    line-height: 0.9;
+  /* Apple squircle: superellipse clip on both the white ring and the photo */
+  .avatar {
+    display: inline-flex;
+    width: 1.6em;
+    height: 1.6em;
+    margin: 0 0.02em;
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.14));
+    transform: rotate(-8deg);
+    transition: var(--transition);
+
+    &:hover {
+      transform: rotate(0deg) scale(1.05);
+    }
+
+    .squircle {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 3px;
+      background-color: var(--canvas);
+      clip-path: url(#squircle);
+    }
+
+    .gatsby-image-wrapper {
+      width: 100%;
+      height: 100%;
+      clip-path: url(#squircle);
+    }
   }
 
-  p {
-    margin: 20px 0 0;
-    max-width: 540px;
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 0.55em;
+    padding: 0 10px 0 7px;
+    height: 24px;
+    border-radius: var(--radius-pill);
+    background-color: var(--canvas);
+    box-shadow: var(--pill-shadow);
+    color: var(--ink);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: -0.05px;
+    line-height: 1;
+    white-space: nowrap;
+    vertical-align: middle;
+
+    .pulse {
+      position: relative;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: var(--status-green-tint);
+
+      &:after {
+        content: '';
+        position: absolute;
+        inset: 3px;
+        border-radius: 50%;
+        background-color: var(--status-green);
+      }
+    }
   }
 
-  .email-link {
-    ${({ theme }) => theme.mixins.bigButton};
-    margin-top: 50px;
+  .cta {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 22px;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .book {
+      ${({ theme }) => theme.mixins.darkPill};
+      flex-shrink: 0;
+      min-height: 40px;
+      padding: 12px 20px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: -0.1px;
+    }
+
+    p {
+      max-width: 320px;
+      margin: 0;
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 400;
+      letter-spacing: -0.1px;
+      line-height: 1.55;
+    }
   }
 `;
 
-const Hero = () => {
-  const [isMounted, setIsMounted] = useState(false);
-  const prefersReducedMotion = usePrefersReducedMotion();
-
-  useEffect(() => {
-    if (prefersReducedMotion) {
-      return;
-    }
-
-    const timeout = setTimeout(() => setIsMounted(true), navDelay);
-    return () => clearTimeout(timeout);
-  }, []);
-
-  const one = <h1>Hi 👋🏻, my name is</h1>;
-  const two = <h2 className="big-heading">Aman Jha.</h2>;
-  const three = <h3 className="big-heading">I build things for the Next-Gen Web.</h3>;
-  const four = (
-    <>
-      <p>
-        I’m a software engineer 👨🏻‍💻 specializing in building (and designing) exceptional digital
-        experiences. Currently, I’m focused on shaping the future of shaping the future of{' '}
-        {/* building accessible, human-centered products */}
-        FinTech at{' '}
-        <a href="https://www.swiffylabs.com/" target="_blank" rel="noreferrer">
-          SwiffyLabs
-        </a>
-        .
-      </p>
-    </>
-  );
-  const five = (
-    <a className="email-link" href="https://topmate.io/amnjha" target="_blank" rel="noreferrer">
-      Talk To Me!
-    </a>
-  );
-
-  const items = [one, two, three, four, five];
-
-  return (
-    <StyledHeroSection>
-      {prefersReducedMotion ? (
-        <>
-          {items.map((item, i) => (
-            <div key={i}>{item}</div>
+const Hero = () => (
+  <StyledHeroSection id="top">
+    <h1>
+      <span className="line">
+        <span>Hi, I’m</span>
+        <span className="avatar">
+          <svg
+            width="0"
+            height="0"
+            aria-hidden="true"
+            focusable="false"
+            style={{ position: 'absolute' }}>
+            <defs>
+              <clipPath id="squircle" clipPathUnits="objectBoundingBox">
+                <path d="M0.5,0 C0.114,0 0,0.114 0,0.5 C0,0.886 0.114,1 0.5,1 C0.886,1 1,0.886 1,0.5 C1,0.114 0.886,0 0.5,0 Z" />
+              </clipPath>
+            </defs>
+          </svg>
+          <span className="squircle">
+            <StaticImage
+              src="../../images/me.jpg"
+              width={120}
+              height={120}
+              quality={95}
+              placeholder="blurred"
+              formats={['AUTO', 'WEBP', 'AVIF']}
+              alt="Aman Jha"
+            />
+          </span>
+        </span>
+        <span>Aman Jha!</span>
+      </span>
+      <span className="line">
+        <span className="muted">I’m a</span>
+        <span>{role}</span>
+        <span className="muted">at</span>
+      </span>
+      <span className="line">
+        <a className="accent" href={company.url} target="_blank" rel="noreferrer">
+          {(company.brand || [{ text: company.name, tone: 'orange' }]).map(({ text, tone }, i) => (
+            <span key={i} className={tone}>
+              {text}
+            </span>
           ))}
-        </>
-      ) : (
-        <TransitionGroup component={null}>
-          {isMounted &&
-            items.map((item, i) => (
-              <CSSTransition key={i} classNames="fadeup" timeout={loaderDelay}>
-                <div style={{ transitionDelay: `${i + 1}00ms` }}>{item}</div>
-              </CSSTransition>
-            ))}
-        </TransitionGroup>
-      )}
-    </StyledHeroSection>
-  );
-};
+          .
+        </a>
+        {openToWork && (
+          <span className="status">
+            <span className="pulse" aria-hidden="true" />
+            Open to work
+          </span>
+        )}
+      </span>
+    </h1>
+
+    <div className="cta">
+      <a className="book" href={bookCallUrl} target="_blank" rel="noreferrer">
+        Book a call
+      </a>
+      <p>Feel free to explore my portfolio and reach out —I’d love to connect!</p>
+    </div>
+  </StyledHeroSection>
+);
 
 export default Hero;

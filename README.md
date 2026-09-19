@@ -56,18 +56,18 @@
    npm run serve
    ```
 
-## 🎨 Color Reference
+## 🎨 Design Language
 
-| Color          | Hex                                                                |
-| -------------- | ------------------------------------------------------------------ |
-| Navy           | ![#0a192f](https://via.placeholder.com/10/0a192f?text=+) `#0a192f` |
-| Light Navy     | ![#112240](https://via.placeholder.com/10/0a192f?text=+) `#112240` |
-| Lightest Navy  | ![#233554](https://via.placeholder.com/10/303C55?text=+) `#233554` |
-| Slate          | ![#8892b0](https://via.placeholder.com/10/8892b0?text=+) `#8892b0` |
-| Light Slate    | ![#a8b2d1](https://via.placeholder.com/10/a8b2d1?text=+) `#a8b2d1` |
-| Lightest Slate | ![#ccd6f6](https://via.placeholder.com/10/ccd6f6?text=+) `#ccd6f6` |
-| White          | ![#e6f1ff](https://via.placeholder.com/10/e6f1ff?text=+) `#e6f1ff` |
-| Green          | ![#64ffda](https://via.placeholder.com/10/64ffda?text=+) `#64ffda` |
+The site follows the [Apple design language](https://github.com/VoltAgent/awesome-design-md/blob/main/design-md/apple/DESIGN.md): a single Action Blue accent, near-black ink on white and parchment canvases, hairline-bordered 18px cards, pill CTAs and no decorative shadows. Tokens live in `src/styles/variables.js`; page content (role, skills, process steps, links) lives in `src/config.js` and `content/`.
+
+| Token       | Hex                                                                |
+| ----------- | ------------------------------------------------------------------ |
+| Action Blue | ![#0066cc](https://via.placeholder.com/10/0066cc?text=+) `#0066cc` |
+| Ink         | ![#1d1d1f](https://via.placeholder.com/10/1d1d1f?text=+) `#1d1d1f` |
+| Ink Muted   | ![#7a7a7a](https://via.placeholder.com/10/7a7a7a?text=+) `#7a7a7a` |
+| Hairline    | ![#e0e0e0](https://via.placeholder.com/10/e0e0e0?text=+) `#e0e0e0` |
+| Canvas      | ![#ffffff](https://via.placeholder.com/10/ffffff?text=+) `#ffffff` |
+| Parchment   | ![#f5f5f7](https://via.placeholder.com/10/f5f5f7?text=+) `#f5f5f7` |
 
 ### Inspiration
 

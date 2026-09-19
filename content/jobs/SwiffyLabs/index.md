@@ -1,19 +1,16 @@
 ---
-date: '2024-02-17'
-title: 'Staff Software Engineer'
+date: '2026-07-01'
+title: 'Staff Engineer'
 company: 'SwiffyLabs'
-location: 'Bangalore, KA'
-range: 'Feb 2024 - Present'
+location: 'Bengaluru, KA'
+range: 'July 2026 - Present'
 url: 'https://www.swiffylabs.com/'
 ---
 
-- Lead the product development for Jio-Wallet : An India focussed apple-wallet alternative
-- Lead the development of Risk Engine for LOS Journeys
-- Single-handedly built a library called "Cadence" that allows for creation and execution of dymanic workflows based on json configuration. The library facilitates deploying lender specific workflows in minutes instead of months. This library is deployed across a variety of products which requires a backend driven workflow execution.
-- Created the Collateral Management System for use across LAS (Loan Against Securities) products.
-- Built a config store - an inhouse alternative to hashicorp consul
-- Contributed to Limits Management System - A tree store for storing limits across organizational hierarchy
-- Built a library called "Relay" - An engine to facilitate third party integrations, via json configuration, making integrations as simple as writing a json configuration.
-- Contributed to platform and infrastructure components as and when required.
-- Design and Review of upcoming products at SwiffyLabs.
-- Review and Moderation of Codebase
+- Own the loan origination system (LOS) stack for a lending platform serving 6 lender clients, leading a cross-functional team of 10 frontend and backend engineers.
+- Build Nimbus, a graph-based workflow engine developed in house as an alternative to Temporal, sustaining 100K+ LOS journeys per day as the state layer for every lender journey on the platform.
+- Build a low-code orchestration engine for assisted journeys, in which lender staff originate loans on behalf of customers, generating forms and flows from configuration.
+- Model integrations and persistence for those journeys as configuration rather than code, letting the delivery team onboard new lender requirements without a release.
+- Build Keystone, a schema-driven configuration store persisting strongly typed JSON in dynamically provisioned PostgreSQL tables behind HTTP endpoints, used by all LOS services and by the React form-driven frontend.
+- Define service boundaries, data models and review standards for the LOS platform, from lender onboarding through to customer disbursal journeys.
+- Technologies: Java, Spring Boot, PostgreSQL, Redis, Kafka, Docker, Kubernetes, Azure, Grafana Stack.

@@ -4,7 +4,7 @@ module.exports = {
   siteMetadata: {
     title: 'Aman Jha',
     description:
-      'Aman Jha is a software engineer who specializes in building (and occasionally designing) exceptional digital experiences.',
+      'Aman Jha is a staff engineer with 10 years of backend and platform experience across consumer lending, payments and retail systems.',
     siteUrl: 'https://amnjha.github.io', // No trailing slash allowed!
     image: '/og.png', // Path to your image you placed in the 'static' folder
     twitterUsername: '@amn_jha',

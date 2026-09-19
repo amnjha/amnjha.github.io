@@ -1,96 +1,95 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import styled from 'styled-components';
+import { socialMedia, email } from '@config';
 import { Icon } from '@components/icons';
-import { socialMedia } from '@config';
 
 const StyledFooter = styled.footer`
-  ${({ theme }) => theme.mixins.flexCenter};
-  flex-direction: column;
-  height: auto;
-  min-height: 70px;
-  padding: 15px;
-  text-align: center;
-`;
+  background-color: var(--canvas);
+  color: var(--ink-muted-48);
+  padding: 32px 48px 40px;
 
-const StyledSocialLinks = styled.div`
-  display: none;
-
+  @media (max-width: 1080px) {
+    padding: 40px 40px;
+  }
   @media (max-width: 768px) {
-    display: block;
-    width: 100%;
-    max-width: 270px;
-    margin: 0 auto 10px;
-    color: var(--light-slate);
+    padding: 32px 24px;
+  }
+  @media (max-width: 480px) {
+    padding: 32px 16px;
   }
 
-  ul {
+  .inner {
     ${({ theme }) => theme.mixins.flexBetween};
-    padding: 0;
-    margin: 0;
-    list-style: none;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    gap: 16px;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  .inner {
+    padding-top: 24px;
+    border-top: 1px solid var(--divider-soft);
+  }
+
+  .credit {
+    font-size: 11px;
+    letter-spacing: -0.12px;
+    line-height: 1.6;
 
     a {
-      padding: 10px;
-      svg {
-        width: 20px;
-        height: 20px;
+      color: var(--ink-muted-48);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--primary);
       }
     }
   }
 `;
 
-const StyledCredit = styled.div`
-  color: var(--light-slate);
-  font-family: var(--font-mono);
-  font-size: var(--fz-xxs);
-  line-height: 1;
+const StyledSocialLinks = styled.div`
+  ul {
+    ${({ theme }) => theme.mixins.flexBetween};
+    ${({ theme }) => theme.mixins.resetList};
+    gap: 4px;
 
-  a {
-    padding: 10px;
-  }
+    a {
+      ${({ theme }) => theme.mixins.flexCenter};
+      width: 32px;
+      height: 32px;
+      border-radius: var(--radius-pill);
+      color: var(--ink-muted-48);
 
-  .github-stats {
-    margin-top: 10px;
+      &:hover,
+      &:focus-visible {
+        color: var(--primary);
+        background-color: var(--card);
+      }
 
-    & > span {
-      display: inline-flex;
-      align-items: center;
-      margin: 0 7px;
-    }
-    svg {
-      display: inline-block;
-      margin-right: 5px;
-      width: 14px;
-      height: 14px;
+      svg {
+        width: 15px;
+        height: 15px;
+      }
     }
   }
 `;
 
-const Footer = () => {
-  const [githubInfo, setGitHubInfo] = useState({
-    stars: null,
-    forks: null,
-  });
+const Footer = () => (
+  <StyledFooter id="contact">
+    <div className="inner">
+      <div className="credit">
+        <div>
+          Designed &amp; built by <a href="https://github.com/amnjha/amnjha.github.io">Aman Jha</a>
+        </div>
+        <div>
+          <a href={`mailto:${email}`}>{email}</a>
+        </div>
+      </div>
 
-  useEffect(() => {
-    if (process.env.NODE_ENV !== 'production') {
-      return;
-    }
-    fetch('https://api.github.com/repos/amnjha/amnjha.gihub.io')
-      .then(response => response.json())
-      .then(json => {
-        const { stargazers_count, forks_count } = json;
-        setGitHubInfo({
-          stars: stargazers_count,
-          forks: forks_count,
-        });
-      })
-      .catch(e => console.error(e));
-  }, []);
-
-  return (
-    <StyledFooter>
       <StyledSocialLinks>
         <ul>
           {socialMedia &&
@@ -103,31 +102,8 @@ const Footer = () => {
             ))}
         </ul>
       </StyledSocialLinks>
-
-      <StyledCredit tabindex="-1">
-        <a href="https://github.com/amnjha/amnjha.github.io">
-          <div>Designed &amp; Built by Aman Jha</div>
-
-          {githubInfo.stars && githubInfo.forks && (
-            <div className="github-stats">
-              <span>
-                <Icon name="Star" />
-                <span>{githubInfo.stars.toLocaleString()}</span>
-              </span>
-              <span>
-                <Icon name="Fork" />
-                <span>{githubInfo.forks.toLocaleString()}</span>
-              </span>
-            </div>
-          )}
-        </a>
-      </StyledCredit>
-    </StyledFooter>
-  );
-};
-
-Footer.propTypes = {
-  githubInfo: PropTypes.object,
-};
+    </div>
+  </StyledFooter>
+);
 
 export default Footer;

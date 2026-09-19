@@ -1,38 +1,90 @@
 import { css } from 'styled-components';
 
+/*
+  Design tokens follow the Apple design language:
+  one Action Blue accent, near-black ink, white / parchment canvases,
+  hairline borders, pill CTAs and 18px utility cards.
+*/
 const variables = css`
   :root {
-    --dark-navy: #020c1b;
-    --navy: #0a192f;
-    --light-navy: #112240;
-    --lightest-navy: #233554;
-    --navy-shadow: rgba(2, 12, 27, 0.7);
-    --dark-slate: #495670;
-    --slate: #8892b0;
-    --light-slate: #a8b2d1;
-    --lightest-slate: #ccd6f6;
-    --white: #e6f1ff;
-    --green: #64ffda;
-    --green-tint: rgba(100, 255, 218, 0.1);
-    --pink: #f57dff;
-    --blue: #57cbff;
+    /* Apple tokens */
+    --primary: #f0874b;
+    --primary-focus: #e97635;
+    --primary-on-dark: #f6a06e;
+    --primary-tint: rgba(240, 135, 75, 0.12);
+    --teal: #19a3b3;
+    --teal-focus: #128e9c;
+    --ink: #1d1d1f;
+    --ink-muted-80: #333333;
+    --ink-muted-48: #7a7a7a;
+    --ink-muted-24: #c9c9ce;
+    --card: #f8f8fa;
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.03), 0 10px 28px rgba(0, 0, 0, 0.07);
+    --pill-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 2px 8px rgba(0, 0, 0, 0.06);
+    --divider-soft: #f0f0f0;
+    --hairline: #e0e0e0;
+    --hairline-alpha: rgba(0, 0, 0, 0.08);
+    --canvas: #ffffff;
+    --canvas-parchment: #f5f5f7;
+    --surface-pearl: #fafafc;
+    --surface-tile-1: #272729;
+    --surface-black: #000000;
+    --surface-chip: rgba(210, 210, 215, 0.64);
+    --status-green: #34c759;
+    --status-green-tint: rgba(52, 199, 89, 0.22);
+    --on-primary: #ffffff;
+    --on-dark: #ffffff;
+    --product-shadow: rgba(0, 0, 0, 0.22) 3px 5px 30px 0;
 
-    --font-sans: 'Calibre', 'Inter', 'San Francisco', 'SF Pro Text', -apple-system, system-ui,
-      sans-serif;
+    /* Legacy names used by the blog, archive and post pages, remapped to the light palette */
+    --dark-navy: var(--canvas-parchment);
+    --navy: var(--canvas);
+    --light-navy: var(--canvas-parchment);
+    --lightest-navy: var(--hairline);
+    --navy-shadow: rgba(0, 0, 0, 0.08);
+    --dark-slate: var(--ink-muted-48);
+    --slate: var(--ink-muted-80);
+    --light-slate: var(--ink-muted-80);
+    --lightest-slate: var(--ink);
+    --white: var(--ink);
+    --green: var(--primary);
+    --green-tint: var(--primary-tint);
+    --pink: var(--primary);
+    --blue: var(--primary);
+
+    --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter',
+      system-ui, 'Segoe UI', Helvetica, Arial, sans-serif;
     --font-mono: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
 
-    --fz-xxs: 12px;
-    --fz-xs: 13px;
+    --fz-xxs: 10px;
+    --fz-xs: 12px;
     --fz-sm: 14px;
-    --fz-md: 16px;
-    --fz-lg: 18px;
-    --fz-xl: 20px;
-    --fz-xxl: 22px;
-    --fz-heading: 32px;
+    --fz-md: 17px;
+    --fz-lg: 21px;
+    --fz-xl: 24px;
+    --fz-xxl: 28px;
+    --fz-heading: 40px;
+    --fz-hero: 56px;
 
-    --border-radius: 4px;
-    --nav-height: 100px;
-    --nav-scroll-height: 70px;
+    --radius-xs: 5px;
+    --radius-sm: 8px;
+    --radius-md: 11px;
+    --radius-lg: 18px;
+    --radius-pill: 9999px;
+    --border-radius: var(--radius-sm);
+
+    --space-xxs: 4px;
+    --space-xs: 8px;
+    --space-sm: 12px;
+    --space-md: 17px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-xxl: 48px;
+    --space-section: 80px;
+
+    --content-width: 540px;
+    --nav-height: 76px;
+    --nav-scroll-height: 60px;
 
     --tab-height: 42px;
     --tab-width: 120px;

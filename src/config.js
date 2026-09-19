@@ -1,5 +1,46 @@
 module.exports = {
   email: 'amanjha22@gmail.com',
+  bookCallUrl: 'https://topmate.io/amnjha',
+  resumePath: '/aman_resume.pdf',
+  openToWork: true,
+
+  role: 'Staff Engineer',
+  company: {
+    name: 'SwiffyLabs',
+    url: 'https://www.swiffylabs.com/',
+    // rendered as two coloured parts in the hero
+    brand: [
+      { text: 'Swiffy', tone: 'teal' },
+      { text: 'Labs', tone: 'orange' },
+    ],
+  },
+
+  location: {
+    city: 'Bengaluru',
+    country: 'India',
+    coordinates: '12.9716° N, 77.5946° E',
+  },
+
+  skills: [
+    'Java',
+    'Go',
+    'Spring Boot',
+    'PostgreSQL',
+    'Kafka',
+    'Redis',
+    'Docker',
+    'Kubernetes',
+    'Azure',
+    'AWS',
+  ],
+
+  reading: {
+    title: 'The 48 Laws of Power',
+    author: 'Robert Greene',
+    url: 'https://www.goodreads.com/book/show/1303.The_48_Laws_of_Power',
+    // Drop a cover at src/images/books/<cover>.jpg (or .png) and it is picked up automatically
+    cover: '48-laws-of-power',
+  },
 
   socialMedia: [
     {
@@ -26,16 +67,12 @@ module.exports = {
 
   navLinks: [
     {
-      name: 'About',
-      url: '/#about',
-    },
-    {
       name: 'Experience',
-      url: '/#jobs',
+      url: '/#experience',
     },
     {
       name: 'Work',
-      url: '/#projects',
+      url: '/#work',
     },
     {
       name: 'Contact',
@@ -44,9 +81,14 @@ module.exports = {
   ],
 
   colors: {
-    green: '#64ffda',
-    navy: '#0a192f',
-    darkNavy: '#020c1b',
+    primary: '#f0874b',
+    ink: '#1d1d1f',
+    canvas: '#ffffff',
+    parchment: '#f5f5f7',
+    // kept for gatsby-config manifest colours
+    green: '#f0874b',
+    navy: '#ffffff',
+    darkNavy: '#f5f5f7',
   },
 
   srConfig: (delay = 200, viewFactor = 0.25) => ({

@@ -21,49 +21,38 @@ const GlobalStyle = createGlobalStyle`
   }
 
   ::selection {
-    background-color: var(--lightest-navy);
-    color: var(--lightest-slate);
+    background-color: var(--primary);
+    color: var(--on-primary);
   }
 
-  /* Provide basic, default focus styles.*/
   :focus {
-    outline: 2px dashed var(--green);
+    outline: 2px solid var(--primary-focus);
     outline-offset: 3px;
   }
 
-  /*
-    Remove default focus styles for mouse users ONLY if
-    :focus-visible is supported on this platform.
-  */
   :focus:not(:focus-visible) {
     outline: none;
     outline-offset: 0px;
   }
 
-  /*
-    Optionally: If :focus-visible is supported on this
-    platform, provide enhanced focus styles for keyboard
-    focus.
-  */
   :focus-visible {
-    outline: 2px dashed var(--green);
+    outline: 2px solid var(--primary-focus);
     outline-offset: 3px;
   }
 
-  /* Scrollbar Styles */
   html {
     scrollbar-width: thin;
-    scrollbar-color: var(--dark-slate) var(--navy);
+    scrollbar-color: var(--ink-muted-24) var(--canvas);
   }
   ::-webkit-scrollbar {
     width: 12px;
   }
   ::-webkit-scrollbar-track {
-    background: var(--navy);
+    background: var(--canvas);
   }
   ::-webkit-scrollbar-thumb {
-    background-color: var(--dark-slate);
-    border: 3px solid var(--navy);
+    background-color: var(--ink-muted-24);
+    border: 3px solid var(--canvas);
     border-radius: 10px;
   }
 
@@ -74,15 +63,13 @@ const GlobalStyle = createGlobalStyle`
     overflow-x: hidden;
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
-    background-color: var(--navy);
-    color: var(--slate);
+    background-color: var(--canvas);
+    color: var(--ink);
     font-family: var(--font-sans);
-    font-size: var(--fz-xl);
-    line-height: 1.3;
-
-    @media (max-width: 480px) {
-      font-size: var(--fz-lg);
-    }
+    font-size: var(--fz-md);
+    font-weight: 400;
+    letter-spacing: -0.374px;
+    line-height: 1.47;
 
     &.hidden {
       overflow: hidden;
@@ -96,7 +83,7 @@ const GlobalStyle = createGlobalStyle`
       }
 
       #content > * {
-        filter: blur(5px) brightness(0.7);
+        filter: blur(5px);
         transition: var(--transition);
         pointer-events: none;
         user-select: none;
@@ -114,46 +101,42 @@ const GlobalStyle = createGlobalStyle`
   main {
     margin: 0 auto;
     width: 100%;
-    max-width: 1600px;
+    max-width: 1440px;
     min-height: 100vh;
-    padding: 200px 150px;
+    padding: 160px 48px;
 
     @media (max-width: 1080px) {
-      padding: 200px 100px;
+      padding: 160px 40px;
     }
     @media (max-width: 768px) {
-      padding: 150px 50px;
+      padding: 140px 24px;
     }
     @media (max-width: 480px) {
-      padding: 125px 25px;
+      padding: 120px 16px;
     }
 
     &.fillHeight {
-      padding: 0 150px;
+      padding: 0 48px;
 
       @media (max-width: 1080px) {
-        padding: 0 100px;
+        padding: 0 40px;
       }
       @media (max-width: 768px) {
-        padding: 0 50px;
+        padding: 0 24px;
       }
       @media (max-width: 480px) {
-        padding: 0 25px;
+        padding: 0 16px;
       }
     }
   }
 
   section {
     margin: 0 auto;
-    padding: 100px 0;
-    max-width: 1000px;
+    padding: var(--space-section) 0;
+    max-width: 980px;
 
     @media (max-width: 768px) {
-      padding: 80px 0;
-    }
-
-    @media (max-width: 480px) {
-      padding: 60px 0;
+      padding: 48px 0;
     }
   }
 
@@ -165,18 +148,22 @@ const GlobalStyle = createGlobalStyle`
   h6 {
     margin: 0 0 10px 0;
     font-weight: 600;
-    color: var(--lightest-slate);
+    color: var(--ink);
     line-height: 1.1;
+    letter-spacing: -0.01em;
   }
 
   .big-heading {
     margin: 0;
-    font-size: clamp(40px, 8vw, 80px);
+    font-size: clamp(34px, 6vw, var(--fz-hero));
+    line-height: 1.07;
+    letter-spacing: -0.28px;
   }
 
   .medium-heading {
     margin: 0;
-    font-size: clamp(40px, 8vw, 60px);
+    font-size: clamp(28px, 5vw, var(--fz-heading));
+    line-height: 1.1;
   }
 
   .numbered-heading {
@@ -194,15 +181,10 @@ const GlobalStyle = createGlobalStyle`
       counter-increment: section;
       content: '0' counter(section) '.';
       margin-right: 10px;
-      color: var(--green);
+      color: var(--primary);
       font-family: var(--font-mono);
-      font-size: clamp(var(--fz-md), 3vw, var(--fz-xl));
+      font-size: clamp(var(--fz-md), 3vw, var(--fz-lg));
       font-weight: 400;
-
-      @media (max-width: 480px) {
-        margin-bottom: -3px;
-        margin-right: 5px;
-      }
     }
 
     &:after {
@@ -213,7 +195,7 @@ const GlobalStyle = createGlobalStyle`
       width: 300px;
       height: 1px;
       margin-left: 20px;
-      background-color: var(--lightest-navy);
+      background-color: var(--hairline);
 
       @media (max-width: 1080px) {
         width: 200px;
@@ -261,7 +243,7 @@ const GlobalStyle = createGlobalStyle`
 
     &:hover,
     &:focus {
-      color: var(--green);
+      color: var(--primary);
     }
 
     &.inline-link {
@@ -273,11 +255,13 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     border: 0;
     border-radius: 0;
+    font-family: var(--font-sans);
   }
 
   input, textarea {
     border-radius: 0;
     outline: 0;
+    font-family: var(--font-sans);
 
     &:focus {
       outline: 0;
@@ -303,36 +287,22 @@ const GlobalStyle = createGlobalStyle`
     }
 
     & > code {
-      background-color: var(--light-navy);
-      color: var(--white);
+      background-color: var(--canvas-parchment);
+      color: var(--ink);
       font-size: var(--fz-sm);
-      border-radius: var(--border-radius);
+      border-radius: var(--radius-xs);
       padding: 0.3em 0.5em;
     }
   }
 
   ul {
     &.fancy-list {
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      font-size: var(--fz-lg);
-      li {
-        position: relative;
-        padding-left: 30px;
-        margin-bottom: 10px;
-        &:before {
-          content: '▹';
-          position: absolute;
-          left: 0;
-          color: var(--green);
-        }
-      }
+      ${({ theme }) => theme.mixins.fancyList};
     }
   }
 
   blockquote {
-    border-left-color: var(--green);
+    border-left-color: var(--primary);
     border-left-style: solid;
     border-left-width: 1px;
     margin-left: 0px;
@@ -341,12 +311,13 @@ const GlobalStyle = createGlobalStyle`
 
     p {
       font-style: italic;
-      font-size: 24px;
+      font-size: var(--fz-xl);
+      font-weight: 300;
     }
   }
 
   hr {
-    background-color: var(--lightest-navy);
+    background-color: var(--hairline);
     height: 1px;
     border-width: 0px;
     border-style: initial;
@@ -357,7 +328,7 @@ const GlobalStyle = createGlobalStyle`
 
   code {
     font-family: var(--font-mono);
-    font-size: var(--fz-md);
+    font-size: var(--fz-sm);
   }
 
   .skip-to-content {
@@ -372,43 +343,33 @@ const GlobalStyle = createGlobalStyle`
 
     &:hover,
     &:focus {
-      background-color: var(--green);
-      color: var(--navy);
       top: 0;
       left: 0;
       width: auto;
       height: auto;
       overflow: auto;
       z-index: 99;
-      box-shadow: none;
       transform: none;
     }
   }
 
   #logo {
-    color: var(--green);
+    color: var(--ink);
   }
 
   .overline {
-    color: var(--green);
+    color: var(--primary);
     font-family: var(--font-mono);
-    font-size: var(--fz-md);
+    font-size: var(--fz-sm);
     font-weight: 400;
   }
 
   .subtitle {
-    color: var(--green);
+    color: var(--ink-muted-48);
     margin: 0 0 20px 0;
     font-size: var(--fz-md);
-    font-family: var(--font-mono);
     font-weight: 400;
     line-height: 1.5;
-    @media (max-width: 1080px) {
-      font-size: var(--fz-sm);
-    }
-    @media (max-width: 768px) {
-      font-size: var(--fz-xs);
-    }
 
     a {
       ${({ theme }) => theme.mixins.inlineLink};
@@ -420,7 +381,7 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     align-items: center;
     margin-bottom: 50px;
-    color: var(--green);
+    color: var(--primary);
 
     .arrow {
       display: block;
@@ -430,12 +391,10 @@ const GlobalStyle = createGlobalStyle`
 
     a {
       ${({ theme }) => theme.mixins.inlineLink};
-      font-family: var(--font-mono);
       font-size: var(--fz-sm);
       font-weight: 600;
       line-height: 1.5;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
+      letter-spacing: -0.224px;
     }
   }
 

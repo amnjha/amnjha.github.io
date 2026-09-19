@@ -1,14 +1,13 @@
 ---
-date: '2020-11-02'
+date: '2021-12-01'
 title: 'Senior Software Engineer'
-company: 'Lowes'
-location: 'Bangalore, KA'
-range: 'November 2020 - August 2022'
+company: "Lowe's India"
+location: 'Bengaluru, KA'
+range: 'Dec 2021 - Aug 2022'
 url: 'https://www.lowes.co.in/'
 ---
 
-- Development and maintenance of Homegrown Self-Checkout system - `Tachyon` for the Lowe’s Store ambience.
-- Dashboarding and Alerting for Transactions across Self Checkout Systems
-- Extending the Self Checkout system to act as a Platform to be used across varied Till types.
-- Enablement of Cash Processing Capabilities across Stores.
-- Designing and Moderation of Codebase.
+- Developed Tachyon, an in-house self-checkout system built as a native Go application on Linux and deployed across retail store floors.
+- Extended the self-checkout application into a platform supporting multiple till types across store formats.
+- Built transaction dashboards and alerting across the self-checkout fleet.
+- Technologies: Go, Linux, PostgreSQL, Docker, ELK Stack.
