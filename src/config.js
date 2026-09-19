@@ -5,7 +5,15 @@ module.exports = {
   openToWork: true,
 
   role: 'Staff Engineer',
-  company: { name: 'SwiffyLabs', url: 'https://www.swiffylabs.com/' },
+  company: {
+    name: 'SwiffyLabs',
+    url: 'https://www.swiffylabs.com/',
+    // rendered as two coloured parts in the hero
+    brand: [
+      { text: 'Swiffy', tone: 'teal' },
+      { text: 'Labs', tone: 'orange' },
+    ],
+  },
 
   location: {
     city: 'Bengaluru',
@@ -33,34 +41,6 @@ module.exports = {
     // Drop a cover at src/images/books/<cover>.jpg (or .png) and it is picked up automatically
     cover: '48-laws-of-power',
   },
-
-  process: [
-    {
-      title: 'Discovery Call',
-      description:
-        'In the first stage, we’ll have a discovery call to discuss your goals, needs and project requirements. This helps us align our vision and set the foundation for a successful collaboration.',
-    },
-    {
-      title: 'Scope & Design',
-      description:
-        'I map the problem into service boundaries, data models and a delivery plan, and we agree on what ships first and what can wait.',
-    },
-    {
-      title: 'Build',
-      description:
-        'Focused delivery in short iterations, with configuration over code wherever it lets the team move faster without a release.',
-    },
-    {
-      title: 'Review & Iterate',
-      description:
-        'Regular demos and code reviews keep quality high and surprises low. Feedback goes straight back into the next iteration.',
-    },
-    {
-      title: 'Ship & Support',
-      description:
-        'We launch with dashboards and alerting in place, then I stay around to tune, document and hand over cleanly.',
-    },
-  ],
 
   socialMedia: [
     {
@@ -93,10 +73,6 @@ module.exports = {
     {
       name: 'Work',
       url: '/#work',
-    },
-    {
-      name: 'How I work',
-      url: '/#process',
     },
     {
       name: 'Contact',

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useStaticQuery, graphql } from 'gatsby';
 import { GatsbyImage, StaticImage, getImage } from 'gatsby-plugin-image';
 import styled from 'styled-components';
-import { location, reading, process, socialMedia } from '@config';
+import { location, reading, skills, resumePath } from '@config';
 import { Icon } from '@components/icons';
 
 const CARD = 168;
@@ -140,83 +140,34 @@ const ExperienceCard = styled(Card)`
   }
 `;
 
-const WorkCard = styled(Card)`
-  align-items: center;
-
-  .label {
-    align-self: flex-start;
-  }
-
-  .stack {
-    position: relative;
-    width: 100%;
-    height: 84px;
-    margin-top: 2px;
-  }
-
-  .shot {
-    position: absolute;
-    top: 6px;
-    left: 50%;
-    width: 78px;
-    height: 58px;
-    border-radius: 8px;
-    border: 2.5px solid var(--canvas);
-    overflow: hidden;
-    background-color: var(--canvas);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
-    transition: var(--transition);
-
-    .gatsby-image-wrapper {
-      width: 100%;
-      height: 100%;
-    }
-
-    &:nth-child(1) {
-      transform: translateX(-88%) translateY(6px) rotate(-14deg);
-      z-index: 1;
-    }
-    &:nth-child(2) {
-      transform: translateX(-12%) translateY(6px) rotate(12deg);
-      z-index: 2;
-    }
-    &:nth-child(3) {
-      transform: translateX(-50%) scale(1.06);
-      z-index: 3;
-    }
-
-    &:hover,
-    &:focus-visible {
-      z-index: 4;
-      transform: translateX(-50%) rotate(0deg) scale(1.1);
-    }
-  }
-
-  .title {
-    margin-top: 2px;
-    font-size: 10.5px;
-    font-weight: 600;
-    letter-spacing: -0.1px;
-    color: var(--ink);
-  }
-
-  .cta {
-    display: inline-flex;
-    align-items: center;
+const StackCard = styled(Card)`
+  .chips {
+    ${({ theme }) => theme.mixins.resetList};
+    display: flex;
+    flex-wrap: wrap;
     gap: 4px;
-    margin-top: 3px;
+
+    li {
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      background-color: var(--canvas);
+      box-shadow: var(--pill-shadow);
+      color: var(--ink);
+      font-size: 8.5px;
+      font-weight: 500;
+      letter-spacing: 0;
+      line-height: 1.2;
+    }
+  }
+
+  .more {
+    margin-top: auto;
+    padding-top: 10px;
     font-size: 8.5px;
     font-weight: 500;
-    color: var(--ink-muted-48);
+    color: var(--ink-muted-24);
 
-    svg {
-      width: 9px;
-      height: 9px;
-      color: var(--primary);
-    }
-
-    &:hover,
-    &:focus-visible {
+    a {
       color: var(--primary);
     }
   }
@@ -409,25 +360,107 @@ const MapCard = styled(Card)`
   }
 `;
 
-const ProcessCard = styled(Card)`
-  .step {
-    flex: 1;
-    padding: 12px 0 12px;
+const ProjectsCard = styled(Card)`
+  .project {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    gap: 14px;
+    align-items: start;
+    padding: 2px 0 12px;
+
+    @media (max-width: 400px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
   }
 
-  .step h3 {
+  .shot {
+    display: block;
+    max-width: 160px;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: var(--canvas);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    aspect-ratio: 4 / 3;
+
+    .gatsby-image-wrapper {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .project h3 {
     font-size: 12px;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
+
+    a {
+      color: var(--ink);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--primary);
+      }
+    }
   }
 
-  .step p {
-    margin: 0;
+  .description {
     color: var(--ink-muted-48);
     font-size: 8.5px;
     font-weight: 500;
     line-height: 1.45;
     letter-spacing: 0;
-    max-width: 60ch;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .tech {
+    ${({ theme }) => theme.mixins.resetList};
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-top: 8px;
+
+    li {
+      padding: 3px 7px;
+      border-radius: var(--radius-pill);
+      background-color: var(--canvas);
+      box-shadow: var(--pill-shadow);
+      font-size: 7.5px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--ink);
+    }
+  }
+
+  .links {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 8.5px;
+      font-weight: 500;
+      color: var(--ink-muted-48);
+
+      svg {
+        width: 9px;
+        height: 9px;
+        color: var(--primary);
+      }
+
+      &:hover,
+      &:focus-visible {
+        color: var(--primary);
+      }
+    }
   }
 
   .tabs {
@@ -496,21 +529,6 @@ const Bento = () => {
           }
         }
       }
-      shots: allFile(
-        filter: {
-          sourceInstanceName: { eq: "content" }
-          relativeDirectory: { regex: "/^featured/" }
-          extension: { in: ["png", "jpg", "jpeg"] }
-        }
-        sort: { fields: name, order: ASC }
-      ) {
-        nodes {
-          name
-          childImageSharp {
-            gatsbyImageData(width: 240, placeholder: BLURRED, formats: [AUTO, WEBP])
-          }
-        }
-      }
       featured: allMarkdownRemark(
         filter: { fileAbsolutePath: { regex: "/content/featured/" } }
         sort: { fields: [frontmatter___date], order: ASC }
@@ -521,7 +539,14 @@ const Bento = () => {
               title
               external
               github
+              tech
+              cover {
+                childImageSharp {
+                  gatsbyImageData(width: 360, placeholder: BLURRED, formats: [AUTO, WEBP])
+                }
+              }
             }
+            html
           }
         }
       }
@@ -539,13 +564,14 @@ const Bento = () => {
   `);
 
   const jobs = data.jobs.edges.map(({ node }) => node.frontmatter);
-  const shots = data.shots.nodes.slice(0, 3);
-  const featured = data.featured.edges.map(({ node }) => node.frontmatter);
+  const featured = data.featured.edges.map(({ node }) => ({
+    ...node.frontmatter,
+    html: node.html,
+  }));
   const bookCover = getImage(data.bookCovers.nodes.find(n => n.name === reading.cover));
-  const github = (socialMedia.find(s => s.name === 'GitHub') || {}).url;
 
-  const [activeStep, setActiveStep] = useState(0);
-  const step = process[activeStep];
+  const [activeProject, setActiveProject] = useState(0);
+  const project = featured[activeProject];
 
   return (
     <StyledBento>
@@ -569,30 +595,21 @@ const Bento = () => {
           </ol>
         </ExperienceCard>
 
-        <WorkCard id="work" tabIndex="-1">
-          <span className="label">Featured work</span>
-          <div className="stack">
-            {shots.map(({ name, childImageSharp }, i) => {
-              const image = getImage(childImageSharp);
-              const project = featured[i % featured.length] || {};
-              return (
-                <a
-                  key={name}
-                  className="shot"
-                  href={project.external || project.github || github}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={project.title || name}>
-                  {image && <GatsbyImage image={image} alt={project.title || name} />}
-                </a>
-              );
-            })}
+        <StackCard>
+          <span className="label">What I build with</span>
+          <ul className="chips">
+            {skills.map((skill, i) => (
+              <li key={i}>{skill}</li>
+            ))}
+          </ul>
+          <div className="more">
+            Full stack in my{' '}
+            <a href={resumePath} target="_blank" rel="noreferrer">
+              resume
+            </a>
+            .
           </div>
-          <div className="title">Aman’s Projects</div>
-          <a className="cta" href={github} target="_blank" rel="noreferrer">
-            <Icon name="GitHub" /> View on GitHub
-          </a>
-        </WorkCard>
+        </StackCard>
 
         <ReadingCard>
           <span className="label">What I’m reading</span>
@@ -642,29 +659,64 @@ const Bento = () => {
           </div>
         </MapCard>
 
-        <ProcessCard className="span-2" id="process" tabIndex="-1">
-          <span className="label">How I work</span>
-          <div className="step" role="tabpanel" id={`step-panel-${activeStep}`}>
-            <h3>
-              {String(activeStep + 1).padStart(2, '0')} {step.title}
-            </h3>
-            <p>{step.description}</p>
-          </div>
-          <div className="tabs" role="tablist" aria-label="How I work">
-            {process.map((item, i) => (
+        <ProjectsCard className="span-2" id="work" tabIndex="-1">
+          <span className="label">Featured work</span>
+          {project && (
+            <div className="project" role="tabpanel" id={`project-panel-${activeProject}`}>
+              {getImage(project.cover) && (
+                <a
+                  className="shot"
+                  href={project.external || project.github}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={project.title}>
+                  <GatsbyImage image={getImage(project.cover)} alt={project.title} />
+                </a>
+              )}
+              <div>
+                <h3>
+                  <a href={project.external || project.github} target="_blank" rel="noreferrer">
+                    {project.title}
+                  </a>
+                </h3>
+                <div className="description" dangerouslySetInnerHTML={{ __html: project.html }} />
+                {project.tech && (
+                  <ul className="tech">
+                    {project.tech.map((t, i) => (
+                      <li key={i}>{t}</li>
+                    ))}
+                  </ul>
+                )}
+                <div className="links">
+                  {project.github && (
+                    <a href={project.github} target="_blank" rel="noreferrer">
+                      <Icon name="GitHub" /> GitHub
+                    </a>
+                  )}
+                  {project.external && (
+                    <a href={project.external} target="_blank" rel="noreferrer">
+                      <Icon name="External" /> Visit
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+          <div className="tabs" role="tablist" aria-label="Featured work">
+            {featured.map((item, i) => (
               <button
                 key={i}
                 type="button"
                 className="tab"
                 role="tab"
-                aria-selected={activeStep === i}
-                aria-controls={`step-panel-${i}`}
-                onClick={() => setActiveStep(i)}>
-                Step {String(i + 1).padStart(2, '0')}
+                aria-selected={activeProject === i}
+                aria-controls={`project-panel-${i}`}
+                onClick={() => setActiveProject(i)}>
+                {item.title}
               </button>
             ))}
           </div>
-        </ProcessCard>
+        </ProjectsCard>
       </div>
     </StyledBento>
   );

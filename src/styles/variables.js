@@ -12,6 +12,8 @@ const variables = css`
     --primary-focus: #e97635;
     --primary-on-dark: #f6a06e;
     --primary-tint: rgba(240, 135, 75, 0.12);
+    --teal: #19a3b3;
+    --teal-focus: #128e9c;
     --ink: #1d1d1f;
     --ink-muted-80: #333333;
     --ink-muted-48: #7a7a7a;

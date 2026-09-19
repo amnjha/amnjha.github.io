@@ -35,9 +35,21 @@ const StyledHeroSection = styled.section`
   .accent {
     color: var(--primary);
 
+    .teal {
+      color: var(--teal);
+    }
+    .orange {
+      color: var(--primary);
+    }
+
     &:hover,
     &:focus-visible {
-      color: var(--primary-focus);
+      .teal {
+        color: var(--teal-focus);
+      }
+      .orange {
+        color: var(--primary-focus);
+      }
     }
   }
 
@@ -158,7 +170,12 @@ const Hero = () => (
       </span>
       <span className="line">
         <a className="accent" href={company.url} target="_blank" rel="noreferrer">
-          {company.name}.
+          {(company.brand || [{ text: company.name, tone: 'orange' }]).map(({ text, tone }, i) => (
+            <span key={i} className={tone}>
+              {text}
+            </span>
+          ))}
+          .
         </a>
         {openToWork && (
           <span className="status">
