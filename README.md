@@ -1,74 +1,60 @@
-<div align="center">
-  <img alt="Logo" src="https://raw.githubusercontent.com/bchiang7/v4/main/src/images/logo.png" width="100" />
-</div>
-<h1 align="center">
-  Aman Jha
-</h1>
-<p align="center">
-  The source of <a href="https://amanjha.dev" target="_blank">amanjha.dev</a> built with <a href="https://www.gatsbyjs.org/" target="_blank">Gatsby</a> and hosted with <a href="https://www.netlify.com/" target="_blank">Netlify</a>
-</p>
+<h1 align="center">Aman Jha</h1>
 
 <p align="center">
-  <a href="https://app.netlify.com/sites/brittanychiang/deploys" target="_blank">
-    <img src="https://api.netlify.com/api/v1/badges/1963b488-7b78-48c9-9e2d-6fb5e47ab3af/deploy-status" alt="Netlify Status" />
-  </a>
+  Source of <a href="https://amnjha.github.io" target="_blank">amnjha.github.io</a>, a personal portfolio built with <a href="https://www.gatsbyjs.com/" target="_blank">Gatsby</a> and published on <a href="https://pages.github.com/" target="_blank">GitHub Pages</a>.
 </p>
 
-![demo](https://raw.githubusercontent.com/bchiang7/v4/main/src/images/demo.png)
+![Home page](src/images/demo.png)
 
-## 🛠 Installation & Set Up
+## What's on the page
 
-1. Install the Gatsby CLI
+A single bento-style home page:
 
-   ```sh
-   npm install -g gatsby-cli
-   ```
+| Section                                                       | Where it comes from                                                                      |
+| ------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Hero: name, role, company, "Open to work" pill, "Book a call" | `src/config.js` (`role`, `company`, `openToWork`, `bookCallUrl`) and `src/images/me.jpg` |
+| My Experience                                                 | One markdown file per role in `content/jobs/`                                            |
+| What I build with                                             | `skills` in `src/config.js`                                                              |
+| What I'm reading                                              | `reading` in `src/config.js`; cover image in `src/images/books/`                         |
+| Map                                                           | `location` in `src/config.js`; map image at `src/images/map/bengaluru.jpg`               |
+| Featured work                                                 | One folder per project in `content/featured/` (markdown + cover image), tabbed by `date` |
+| Resume button (menu)                                          | `static/aman_resume.pdf`                                                                 |
 
-2. Install and use the correct version of Node using [NVM](https://github.com/nvm-sh/nvm)
+Social links and the menu entries are also in `src/config.js`. The blog under `/pensieve/` is built from `content/posts/`.
 
-   ```sh
-   nvm install
-   ```
+## Running locally
 
-3. Install dependencies
+Requires Node 20 (`.nvmrc`) and [Yarn 1](https://classic.yarnpkg.com/).
 
-   ```sh
-   yarn
-   ```
+```sh
+nvm install
+yarn install --frozen-lockfile
+yarn develop      # http://localhost:8000 with hot reload
+```
 
-4. Start the development server
+Production build and preview:
 
-   ```sh
-   npm start
-   ```
+```sh
+yarn build
+yarn serve        # http://localhost:9000
+```
 
-## 🚀 Building and Running for Production
+The `build` and `develop` scripts set `NODE_OPTIONS=--openssl-legacy-provider`, which Gatsby 3's webpack 4 needs on Node 17 and newer.
 
-1. Generate a full static production build
+## Deploying
 
-   ```sh
-   npm run build
-   ```
+There are two routes. Both publish the same `public/` build; pick one in **Settings → Pages → Source**.
 
-1. Preview the site as it will appear once deployed
+**GitHub Actions** (source: _GitHub Actions_). `.github/workflows/gatsby.yml` runs on every push to `main`: install, build, upload the artifact and deploy, in one job.
 
-   ```sh
-   npm run serve
-   ```
+**From your machine** (source: _Deploy from a branch_, branch `gh-pages`, folder `/`). Builds locally and pushes `public/` to the `gh-pages` branch:
 
-## 🎨 Design Language
+```sh
+yarn deploy
+```
 
-The site follows the [Apple design language](https://github.com/VoltAgent/awesome-design-md/blob/main/design-md/apple/DESIGN.md): a single Action Blue accent, near-black ink on white and parchment canvases, hairline-bordered 18px cards, pill CTAs and no decorative shadows. Tokens live in `src/styles/variables.js`; page content (role, skills, process steps, links) lives in `src/config.js` and `content/`.
+## Design
 
-| Token       | Hex                                                                |
-| ----------- | ------------------------------------------------------------------ |
-| Action Blue | ![#0066cc](https://via.placeholder.com/10/0066cc?text=+) `#0066cc` |
-| Ink         | ![#1d1d1f](https://via.placeholder.com/10/1d1d1f?text=+) `#1d1d1f` |
-| Ink Muted   | ![#7a7a7a](https://via.placeholder.com/10/7a7a7a?text=+) `#7a7a7a` |
-| Hairline    | ![#e0e0e0](https://via.placeholder.com/10/e0e0e0?text=+) `#e0e0e0` |
-| Canvas      | ![#ffffff](https://via.placeholder.com/10/ffffff?text=+) `#ffffff` |
-| Parchment   | ![#f5f5f7](https://via.placeholder.com/10/f5f5f7?text=+) `#f5f5f7` |
+Light canvas, orange accent (`#f0874b`) with teal (`#19a3b3`) for the first half of the company name, near-black ink and light-grey muted text. Cards sit on a `#f8f8fa` surface with a soft shadow and white label pills. Tokens live in `src/styles/variables.js`, shared button and card styles in `src/styles/mixins.js`, and the home page sections in `src/components/sections/`.
 
-### Inspiration
-
-This is inspired by Brittany Chiang's portfolrio [brittanychiang.com](https://brittanychiang.com).
+Layout inspired by a bento-style portfolio reference; the original scaffold was [Brittany Chiang's v4](https://github.com/bchiang7/v4).
