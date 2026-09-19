@@ -53,26 +53,33 @@ const StyledHeroSection = styled.section`
     }
   }
 
+  /* Apple squircle: superellipse clip on both the white ring and the photo */
   .avatar {
     display: inline-flex;
-    width: 1.55em;
-    height: 1.55em;
+    width: 1.6em;
+    height: 1.6em;
     margin: 0 0.02em;
-    border-radius: 50%;
-    border: 3px solid var(--canvas);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 0, 0, 0.14);
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1)) drop-shadow(0 8px 18px rgba(0, 0, 0, 0.14));
     transform: rotate(-8deg);
-    overflow: hidden;
     transition: var(--transition);
 
     &:hover {
       transform: rotate(0deg) scale(1.05);
     }
 
+    .squircle {
+      display: block;
+      width: 100%;
+      height: 100%;
+      padding: 3px;
+      background-color: var(--canvas);
+      clip-path: url(#squircle);
+    }
+
     .gatsby-image-wrapper {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
+      clip-path: url(#squircle);
     }
   }
 
@@ -151,15 +158,29 @@ const Hero = () => (
       <span className="line">
         <span>Hi, I’m</span>
         <span className="avatar">
-          <StaticImage
-            src="../../images/me.jpg"
-            width={120}
-            height={120}
-            quality={95}
-            placeholder="blurred"
-            formats={['AUTO', 'WEBP', 'AVIF']}
-            alt="Aman Jha"
-          />
+          <svg
+            width="0"
+            height="0"
+            aria-hidden="true"
+            focusable="false"
+            style={{ position: 'absolute' }}>
+            <defs>
+              <clipPath id="squircle" clipPathUnits="objectBoundingBox">
+                <path d="M0.5,0 C0.114,0 0,0.114 0,0.5 C0,0.886 0.114,1 0.5,1 C0.886,1 1,0.886 1,0.5 C1,0.114 0.886,0 0.5,0 Z" />
+              </clipPath>
+            </defs>
+          </svg>
+          <span className="squircle">
+            <StaticImage
+              src="../../images/me.jpg"
+              width={120}
+              height={120}
+              quality={95}
+              placeholder="blurred"
+              formats={['AUTO', 'WEBP', 'AVIF']}
+              alt="Aman Jha"
+            />
+          </span>
         </span>
         <span>Aman Jha!</span>
       </span>
